@@ -54,6 +54,74 @@ class Newer_Tag_Cloud_Admin {
 
 	}
 
+    /**
+	 * Register the options page for the admin area.
+	 *
+	 * @since    1.0.0
+	 */
+	public function register_admin_page() {
+		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/newer-tag-cloud-admin.css', array(), $this->version, 'all' );
+        add_options_page('Newer Tag Cloud Options', 'Newer Tag Cloud', 8, 'newer-tag-cloud.php', 'options_page');
+	}
+
+    /**
+	 * Create the options page for the admin area.
+	 *
+	 * @since    1.0.0
+	 */
+	public function options_page() {
+        // Check if user is Admin
+        if ( !current_user_can( 'manage_options' ) )  {
+    		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
+    	}
+
+        global $newtagcloud_orderoptions;
+
+        if (isset($_POST['newtagcloud-instance'])) {
+            $instanceToUse = intval($_POST['newtagcloud-instance']);
+        } else {
+            $instanceToUse = 0;
+        }
+
+        if (isset($_POST['newtagcloud-saveglobal'])) {
+            update_newtagcloud_options();
+        }
+
+        if (isset($_POST['newtagcloud-clearcache'])) {
+            newtagcloud_cache_clear();
+            echo '<div id="message" class="updated fade"><p><strong>Cache cleared</strong></p></div>';
+        }
+
+        if (isset($_POST['newtagcloud-saveinstance'])) {
+            update_newtagcloud_instanceoptions(intval($_POST['newtagcloud-instance']));
+        }
+
+        if (isset($_POST['newtagcloud-resetinstance'])) {
+            delete_option('newtagcloud_instance' . intval($_POST['newtagcloud-instance']));
+            echo '<div id="message" class="updated fade"><p><strong>';
+            _e('Instance reseted.');
+            echo '</strong></p></div>';
+        }
+
+        if (isset($_POST['newtagcloud-deleteinstance'])) {
+            delete_newtagcloud_instance(intval($_POST['newtagcloud-instance']));
+            $instanceToUse = 0;
+        }
+
+        $globalOptions = get_newtagcloud_options();
+        $instanceOptions = get_newtagcloud_instanceoptions($instanceToUse);
+        $instanceOptions['glue'] = str_replace(" ", "%BLANK%", $instanceOptions['glue']);
+        $instanceName = unserialize($globalOptions['instances']);
+        $instanceName = $instanceName[$instanceToUse];
+        if (is_array($instanceOptions['tagfilter'])) {
+            $tagFilter = implode(",", $instanceOptions['tagfilter']);
+        } else {
+            $tagFilter = "";
+        }
+
+        require __DIR__ . '/partials/newer-tag-cloud-admin-display.php';
+	}
+
 	/**
 	 * Register the stylesheets for the admin area.
 	 *

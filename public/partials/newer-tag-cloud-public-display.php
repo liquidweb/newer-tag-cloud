@@ -14,3 +14,7 @@
 ?>
 
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
+
+<?php echo $before_widget; ?>
+<?php echo $cloud ?>
+<?php echo $after_widget; ?>

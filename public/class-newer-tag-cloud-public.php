@@ -54,6 +54,40 @@ class Newer_Tag_Cloud_Public {
 
 	}
 
+    function newtagcloud_control()
+    {
+        global $newtagcloud_defaults;
+
+        $globalOptions = get_newtagcloud_options();
+        $instanceOptions = get_newtagcloud_instanceoptions($globalOptions['widgetinstance']);
+        if (isset($_POST['newtagcloud-title'])) {
+            $instanceOptions['title'] = strip_tags(stripslashes($_POST['newtagcloud-title']));
+            update_option('newtagcloud_instance' . $globalOptions['widgetinstance'], $instanceOptions);
+        }
+        echo '<p style="text-align:right;"><label for="newtagcloud-title">Title: <input style="width: 250px;" id="newtagcloud-title" name="newtagcloud-title" type="text" value="'.$instanceOptions['title'].'" /></label></p>';
+    }
+
+    /**
+	 * Create the options page for the admin area.
+	 *
+	 * @since    1.0.0
+	 */
+	public function newtagcloud_init() {
+	{
+	    if (!function_exists('wp_register_sidebar_widget') || !function_exists('wp_register_widget_control')) {
+	        return;
+	    }
+	    function print_newertagcloud($args)
+	    {
+	        extract($args);
+            $globalOptions = get_newtagcloud_options();
+            $cloud = generate_newtagcloud(true, true, $globalOptions['widgetinstance']);
+            require __DIR__ . '/partials/newer-tag-cloud-public-display.php';
+	    }
+	    wp_register_sidebar_widget('new_tag_cloud-lw', 'New Tag Cloud', 'print_newertagcloud');
+	    wp_register_widget_control('new_tag_cloud-lw', 'New Tag Cloud', 'newtagcloud_control', 50, 10);
+	}
+
 	/**
 	 * Register the stylesheets for the public-facing side of the site.
 	 *
