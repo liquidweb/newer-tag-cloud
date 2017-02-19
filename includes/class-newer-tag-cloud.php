@@ -30,6 +30,15 @@
 class Newer_Tag_Cloud {
 
 	/**
+	 * The loader that's responsible for options and basic logic
+	 *
+	 * @since    1.0.0
+	 * @access   protected
+	 * @var      Newer_Tag_Cloud_Init    $options    Maintains and registers all hooks for the plugin.
+	 */
+	protected $options;
+
+	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
 	 * the plugin.
 	 *
@@ -75,7 +84,6 @@ class Newer_Tag_Cloud {
 		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
-
 	}
 
 	/**
@@ -95,6 +103,12 @@ class Newer_Tag_Cloud {
 	 * @access   private
 	 */
 	private function load_dependencies() {
+
+        /**
+		 * The class responsible for defining the options and basic logic of the
+		 * core plugin.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-newer-tag-cloud-init.php';
 
 		/**
 		 * The class responsible for orchestrating the actions and filters of the
@@ -119,7 +133,8 @@ class Newer_Tag_Cloud {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-newer-tag-cloud-public.php';
 
-		$this->loader = new Newer_Tag_Cloud_Loader();
+        $this->loader = new Newer_Tag_Cloud_Loader();
+		$this->options = new Newer_Tag_Cloud_Init($this->plugin_name);
 
 	}
 
@@ -149,11 +164,12 @@ class Newer_Tag_Cloud {
 	 */
 	private function define_admin_hooks() {
 
-		$plugin_admin = new Newer_Tag_Cloud_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_admin = new Newer_Tag_Cloud_Admin( $this->get_plugin_name(), $this->get_version(), $this->options );
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
         $this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-		$this->loader->add_action( 'admin_menu', $plugin_admin, 'register_admin_page' ); // Add Admin page
+        $this->loader->add_action( 'admin_menu', $plugin_admin, 'register_admin_page' ); // Add Admin page
+		$this->loader->add_action( 'save_post', $plugin_admin, 'newertagcloud_cache_clear' ); // Add Admin page
 
 	}
 
@@ -166,8 +182,13 @@ class Newer_Tag_Cloud {
 	 */
 	private function define_public_hooks() {
 
-		$plugin_public = new Newer_Tag_Cloud_Public( $this->get_plugin_name(), $this->get_version() );
+		$plugin_public = new Newer_Tag_Cloud_Public( $this->get_plugin_name(), $this->get_version(), $this->options );
 
+        if (function_exists('add_shortcode')) {
+            add_shortcode('newtagcloud', 'newtagcloud_shortcode');
+        }
+
+        $this->loader->add_action( 'widgets_init', $plugin_public, 'newertagcloud_init' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
@@ -212,74 +233,5 @@ class Newer_Tag_Cloud {
 	public function get_version() {
 		return $this->version;
 	}
-
-    function generate_newtagcloud($widget = true, $display = true, $instanceID = 0)
-    {
-        global $newtagcloud_defaults, $wpdb;
-
-        $globalOptions = get_newtagcloud_options();
-
-        if ($globalOptions['enablecache'] && !empty($globalOptions['cache'][$instanceID])) {
-            if ($display) {
-                echo $globalOptions['cache'][$instanceID];
-            } else {
-                return $globalOptions['cache'][$instanceID];
-            }
-            return;
-        }
-
-        $instanceOptions = get_newtagcloud_instanceoptions($instanceID);
-        $content = array();
-        $size = $instanceOptions['bigsize'];
-
-        if (is_array($instanceOptions['catfilter'])) {
-            $sqlCatFilter = "`$wpdb->term_relationships`.`object_id` IN (SELECT `object_id` FROM `$wpdb->term_relationships` LEFT JOIN `$wpdb->term_taxonomy` ON `$wpdb->term_relationships`.`term_taxonomy_id` = `$wpdb->term_taxonomy`.`term_taxonomy_id` WHERE `term_id` IN (" . implode(",", $instanceOptions['catfilter']) . ")) AND";
-        } else {
-            $sqlCatFilter = "";
-        }
-
-        if (is_array($instanceOptions['tagfilter'])) {
-            foreach ($instanceOptions['tagfilter'] as $key => $value) {
-                $instanceOptions['tagfilter'][$key] = "'" . $wpdb->escape($value) . "'";
-            }
-            $skipTags = implode(",", $instanceOptions['tagfilter']);
-            $sqlTagFilter = "AND LOWER(`$wpdb->terms`.`name`) NOT IN ($skipTags)";
-        } else {
-            $sqlTagFilter = "";
-        }
-        $query = "SELECT `$wpdb->terms`.`term_id`, `$wpdb->terms`.`name`, LOWER(`$wpdb->terms`.`name`) AS lowername, `$wpdb->term_taxonomy`.`count` FROM `$wpdb->terms` LEFT JOIN `$wpdb->term_taxonomy` ON `$wpdb->terms`.`term_id` = `$wpdb->term_taxonomy`.`term_id` LEFT JOIN `$wpdb->term_relationships` ON `$wpdb->term_taxonomy`.`term_taxonomy_id` = `$wpdb->term_relationships`.`term_taxonomy_id` LEFT JOIN `$wpdb->posts` ON `$wpdb->term_relationships`.`object_id` = `$wpdb->posts`.`ID` WHERE " . $sqlCatFilter . " `$wpdb->term_taxonomy`.`taxonomy` = 'post_tag' AND `$wpdb->term_taxonomy`.`count` > 0 " . $sqlTagFilter . " GROUP BY `$wpdb->terms`.`name` ORDER BY `$wpdb->term_taxonomy`.`count` DESC LIMIT 0, " . $instanceOptions['maxcount'];
-        $terms = $wpdb->get_results($query);
-
-        $prevCount = $terms[0]->count;
-        $skipTags = explode(",", $instanceOptions['tagfilter']);
-        foreach ($terms as $term) {
-            if ($prevCount > intval($term->count) && $size > $instanceOptions['smallsize']) {
-                $size = $size - $instanceOptions['step'];
-                $prevCount = intval($term->count);
-            }
-            $content[$term->lowername] = str_replace('%FONTSIZE%', $size, $instanceOptions['entry_layout']);
-            $content[$term->lowername] = str_replace('%SIZETYPE%', $instanceOptions['sizetype'], $content[$term->lowername]);
-            $content[$term->lowername] = str_replace('%TAGURL%', get_tag_link($term->term_id), $content[$term->lowername]);
-            $content[$term->lowername] = str_replace('%TAGNAME%', $term->name, $content[$term->lowername]);
-        }
-        if ($instanceOptions['order'] == 'name') {
-            ksort($content);
-        }
-        $content = implode($instanceOptions['glue'], $content);
-
-        if ($widget) {
-            $result = '<h' . ($globalOptions['headingsize'] + 1) . '>' . $instanceOptions['title'] . '</h' . ($globalOptions['headingsize'] + 1) . '>' . $instanceOptions['html_before'] . $content . $instanceOptions['html_after'];
-        } else {
-            $result = $instanceOptions['html_before'] . $content . $instanceOptions['html_after'];
-        }
-
-        newtagcloud_cache_create($instanceID, $result);
-
-        if ($display) {
-            echo $result;
-        } else {
-            return $result;
-        }
-    }
 
 }
