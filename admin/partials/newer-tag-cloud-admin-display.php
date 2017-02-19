@@ -44,7 +44,11 @@
         </table>
         <p class="submit">
             <input type="submit" name="<?php echo $this->options->pluginName ?>-saveglobal" value="Save global settings"/>
+            <?php
+            if ($globalOptions['enable_cache'] === true) :
+            ?>
             <input type="submit" name="<?php echo $this->options->pluginName ?>-clearcache" value="Clear cache"/>
+            <?php endif; ?>
         </p>
     </form>
     <br/>
