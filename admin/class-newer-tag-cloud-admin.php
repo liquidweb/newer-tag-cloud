@@ -59,8 +59,9 @@ class Newer_Tag_Cloud_Admin {
 	 *
 	 * @since    1.0.0
 	 */
-	public function register_admin_page() {
-        add_options_page('Newer Tag Cloud Options', 'Newer Tag Cloud', 8, $this->plugin_name, [$this, 'options_page']);
+	public function register_admin_pages() {
+        add_menu_page('Newer Tag Cloud', 'Newer Tag Cloud', 'manage_options', $this->plugin_name, [$this, 'options_page']);
+        add_submenu_page( $this->plugin_name, 'Newer Tag Cloud Instances', 'Instances', 'manage_options', $this->plugin_name."/instances", [$this, 'instance_options_page'] );
 	}
 
     /**
@@ -74,14 +75,6 @@ class Newer_Tag_Cloud_Admin {
     		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
     	}
 
-        $orderOptions = $this->options->orderOptions;
-
-        if (isset($_POST[$this->plugin_name.'-instance'])) {
-            $instanceToUse = intval($_POST[$this->plugin_name.'-instance']);
-        } else {
-            $instanceToUse = 0;
-        }
-
         if (isset($_POST[$this->plugin_name.'-saveglobal'])) {
             $this->update_newertagcloud_options();
         }
@@ -89,6 +82,30 @@ class Newer_Tag_Cloud_Admin {
         if (isset($_POST[$this->plugin_name.'-clearcache'])) {
             $this->newertagcloud_cache_clear();
             echo '<div id="message" class="updated fade"><p><strong>Cache cleared</strong></p></div>';
+        }
+
+        $globalOptions = $this->options->get_newertagcloud_options();
+
+        require __DIR__ . '/partials/newer-tag-cloud-admin-display.php';
+	}
+
+    /**
+	 * Create the options page for the admin area.
+	 *
+	 * @since    1.0.0
+	 */
+	public function instance_options_page() {
+        // Check if user is Admin
+        if ( !current_user_can( 'manage_options' ) )  {
+    		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
+    	}
+
+        $orderOptions = $this->options->orderOptions;
+
+        if (isset($_POST[$this->plugin_name.'-instance'])) {
+            $instanceToUse = intval($_POST[$this->plugin_name.'-instance']);
+        } else {
+            $instanceToUse = 0;
         }
 
         if (isset($_POST[$this->plugin_name.'-saveinstance'])) {
@@ -118,7 +135,7 @@ class Newer_Tag_Cloud_Admin {
             $tagFilter = "";
         }
 
-        require __DIR__ . '/partials/newer-tag-cloud-admin-display.php';
+        require __DIR__ . '/partials/newer-tag-cloud-instances-display.php';
 	}
 
 	/**
