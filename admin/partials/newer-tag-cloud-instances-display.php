@@ -14,19 +14,20 @@
 ?>
 
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
+<h2>Newer Tag Cloud by <a href="https://www.liquidweb.com/" target="_blank">Liquid Web</a></h2>
+<h1>
+    <form action="" method="post" name="<?php echo $this->options->pluginName ?>-instanceselector">
+        Instance Settings: <?php
+        echo $this->options->create_selectfield(
+        $this->options->get_newertagcloud_instances(),
+        $instanceToUse,
+        $this->options->pluginName.'-instance',
+        ' id="selected-instance" onChange="submit();" data-cur="'.$instanceToUse.'"'
+    ); ?>
+</form>
+</h1>
 
 <div class="wrap">
-    <h2>
-        <form action="" method="post" name="<?php echo $this->options->pluginName ?>-instanceselector">
-        Instance Settings: <?php
-            echo $this->options->create_selectfield(
-            $this->options->get_newertagcloud_instances(),
-            $instanceToUse,
-            $this->options->pluginName.'-instance',
-            ' id="selected-instance" onChange="submit();" data-cur="'.$instanceToUse.'"'
-        ); ?>
-        </form>
-    </h2>
     <form action="" method="post" name="<?php echo $this->options->pluginName ?>-instance">
         <table class="form-table">
             <tbody>

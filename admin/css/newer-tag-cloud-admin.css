@@ -2,3 +2,27 @@
  * All of the CSS for your admin-specific functionality should be
  * included in this file.
  */
+
+ .left-admin {
+     float: left;
+     width: 29%;
+     min-width: 350px;
+ }
+
+ .right-admin {
+     float: right;
+     max-width: 65%;
+     min-width: 50%;
+ }
+
+@media screen and (max-width: 1307px) {
+    .left-admin {
+        float: none;
+        width: 100%;
+    }
+
+    .right-admin {
+        float: none;
+        width: 100%;
+    }
+}
