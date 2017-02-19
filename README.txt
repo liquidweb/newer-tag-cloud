@@ -1,114 +1,82 @@
-=== Plugin Name ===
-Contributors: (this should be a list of wordpress.org userid's)
-Donate link: http://github.com/mallardduck
-Tags: comments, spam
+=== Newer Tag Cloud ===
+Contributors: liquidwebdan
+Tags: tag, cloud, widget
 Requires at least: 3.0.1
 Tested up to: 3.4
 Stable tag: 4.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Here is a short description of the plugin.  This should be no more than 150 characters.  No markup here.
+A small plugin providing a nice tag cloud feature. Inspired by New Tag Cloud.
 
 == Description ==
 
-This is the long description.  No limit, and you can use Markdown (as well as in the following sections).
+Newer Tag Cloud, inspired by New Tag Cloud, is a WordPress plugin that generates a tag clouds.
 
-For backwards compatibility, if this section is missing, the full length of the short description will be used, and
-Markdown parsed.
+Newer Tag Cloud uses the WordPress own tagging feature, so that you don't need any tagging plugin. You can use New Tag
+Cloud directly as a shortcode in any post/page, as a widget, or in the theme as PHP code.
 
-A few notes about the sections above:
-
-*   "Contributors" is a comma separated list of wp.org/wp-plugins.org usernames
-*   "Tags" is a comma separated list of tags that apply to the plugin
-*   "Requires at least" is the lowest version that the plugin will work on
-*   "Tested up to" is the highest version that you've *successfully used to test the plugin*. Note that it might work on
-higher versions... this is just the highest one you've verified.
-*   Stable tag should indicate the Subversion "tag" of the latest stable version, or "trunk," if you use `/trunk/` for
-stable.
-
-    Note that the `readme.txt` of the stable tag is the one that is considered the defining one for the plugin, so
-if the `/trunk/readme.txt` file says that the stable tag is `4.3`, then it is `/tags/4.3/readme.txt` that'll be used
-for displaying information about the plugin.  In this situation, the only thing considered from the trunk `readme.txt`
-is the stable tag pointer.  Thus, if you develop in trunk, you can update the trunk `readme.txt` to reflect changes in
-your in-development version, without having that information incorrectly disclosed about the current stable version
-that lacks those changes -- as long as the trunk's `readme.txt` points to the correct stable tag.
-
-    If no stable tag is provided, it is assumed that trunk is stable, but you should specify "trunk" if that's where
-you put the stable version, in order to eliminate any doubt.
+Configurebale options
+* widget box title
+* how many tags should be shown
+* biggest font size
+* smallest font size
+* font size stepping
+* font size type (px, em, rem, etc)
+* filtering
+* caching
 
 == Installation ==
+Installation is very easy:
 
-This section describes how to install the plugin and get it working.
+1. Download the plugin zip to the `/wp-content/plugins/` directory
+1. Extract the files in the plugins folder. The result being a new `/wp-content/plugins/newer-tag-cloud` directory
+2. Activate the plugin through the 'Plugins' menu in WordPress
+3. Check out the 'Widgets' tab in the 'Theme' menu and drag the 'New Tag Cloud' widget to your sidebar.
 
-e.g.
+Using directly from a theme file:
+Follow the steps 1 and 2 above. Step 3 is to place this code into your theme file:
+`<?php newerTagCloud(); ?>`
 
-1. Upload `newer-tag-cloud.php` to the `/wp-content/plugins/` directory
-1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Place `<?php do_action('plugin_name_hook'); ?>` in your templates
+Or you want place a tag cloud in a post, on a page or in a text widget?
+
+Use a shortcode: `[newer-tag-cloud]` or [newer-tag-cloud=1]
 
 == Frequently Asked Questions ==
 
-= A question that someone might have =
+= So what does 'inspired by New Tag Cloud' mean exactly? =
+Initially the plugin was created as a direct fork of New Tag Cloud, only used internally and not publically released. A
+new version of the plugin was created based on the [WordPress Plugin Boilerplate](https://wppb.io/) with common features
+being implemented in Newer Tag Cloud.
 
-An answer to that question.
+= How to use vanilla PHP to add a Tag Cloud? =
+If you want to use Newer Tag Cloud in your theme you can still use `<?php newerTagCloud() ?>`. If you want to use a
+specific widget you can provide the function an ID as parameter. For example, `<?php newerTagCloud(2) ?>` will result in
+the configuration using the instance provided.
 
-= What about foo bar? =
+= Using shortcodes to add a Tag Cloud? =
+Simply add `[newer-tag-cloud]` or `[newer-tag-cloud int=<ID>]` to your post or page and the tag cloud will be shown
+there. If you use `[newer-tag-cloud]` the instances set as "Default instance for shortcode" is used. With int=<ID> set
+you can specify an instance to use. For example, this is useful if you need two, or more, different tag clouds
+generated via shortcode.
 
-Answer to foo bar dilemma.
+= Can I use multiple unique clouds? =
+Yes. All "layout specific options" are stored in each instance. The instance has an ID which you can use to call it.
+This feature allows you the place different tag clouds on your blog as needed.
 
-== Screenshots ==
+= So who worked on this? =
+Credit to the original plugin goes to [funnydingo](https://profiles.wordpress.org/funnydingo/).
+This redone version was created by [liquidwebdan](https://profiles.wordpress.org/liquidwebdan/) (aka [MallardDuck on GitHub](https://github.com/mallardduck))
 
-1. This screen shot description corresponds to screenshot-1.(png|jpg|jpeg|gif). Note that the screenshot is taken from
-the /assets directory or the directory that contains the stable readme.txt (tags or trunk). Screenshots in the /assets
-directory take precedence. For example, `/assets/screenshot-1.png` would win over `/tags/4.3/screenshot-1.png`
-(or jpg, jpeg, gif).
-2. This is the second screen shot
+Finally, credit for the WordPress Plugin Boilerplate goes to:
+
+* [DevinVinson](https://github.com/DevinVinson)
+* [Tom McFarlin](https://github.com/tommcfarlin/)
+* [Josh Eaton](https://github.com/jjeaton)
+* [Ulrich Pogson](https://github.com/grappler)
+* ...and many more!
 
 == Changelog ==
 
-= 1.0 =
-* A change since the previous version.
-* Another change.
-
-= 0.5 =
-* List versions from most recent at top to oldest at bottom.
-
-== Upgrade Notice ==
-
-= 1.0 =
-Upgrade notices describe the reason a user should upgrade.  No more than 300 characters.
-
-= 0.5 =
-This version fixes a security related bug.  Upgrade immediately.
-
-== Arbitrary section ==
-
-You may provide arbitrary sections, in the same format as the ones above.  This may be of use for extremely complicated
-plugins where more information needs to be conveyed that doesn't fit into the categories of "description" or
-"installation."  Arbitrary sections will be shown below the built-in sections outlined above.
-
-== A brief Markdown Example ==
-
-Ordered list:
-
-1. Some feature
-1. Another feature
-1. Something else about the plugin
-
-Unordered list:
-
-* something
-* something else
-* third thing
-
-Here's a link to [WordPress](http://wordpress.org/ "Your favorite software") and one to [Markdown's Syntax Documentation][markdown syntax].
-Titles are optional, naturally.
-
-[markdown syntax]: http://daringfireball.net/projects/markdown/syntax
-            "Markdown is what the parser uses to process much of the readme file"
-
-Markdown uses email style notation for blockquotes and I've been told:
-> Asterisks for *emphasis*. Double it up  for **strong**.
-
-`<?php code(); // goes in backticks ?>`
+= 1.0.0 =
+* Initial version inspired by New Tag Cloud
