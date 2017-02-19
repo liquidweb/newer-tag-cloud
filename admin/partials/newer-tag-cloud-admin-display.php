@@ -29,10 +29,6 @@
                     <td><?php echo $this->options->create_selectfield(['h1', 'h2', 'h3', 'h4', 'h5', 'h6'], $globalOptions['heading_size'], $this->options->pluginName.'-heading_size'); ?></td>
                 </tr>
                 <tr valign="top">
-                    <th scope="row">Default instance for filter</th>
-                    <td><?php echo $this->options->create_selectfield($this->options->get_newertagcloud_instances(), $globalOptions['filter_instance'], $this->options->pluginName.'-filter_instance'); ?></td>
-                </tr>
-                <tr valign="top">
                     <th scope="row">Default instance for shortcode</th>
                     <td><?php echo $this->options->create_selectfield($this->options->get_newertagcloud_instances(), $globalOptions['shortcode_instance'], $this->options->pluginName.'-shortcode_instance'); ?></td>
                 </tr>

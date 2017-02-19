@@ -180,7 +180,6 @@ class Newer_Tag_Cloud_Admin {
         $options = $this->options->get_newertagcloud_options();
         $options['widget_instance'] = intval($_POST[$this->plugin_name.'-widget_instance']);
         $options['heading_size'] = intval($_POST[$this->plugin_name.'-heading_size']);
-        $options['filter_instance'] = intval($_POST[$this->plugin_name.'-filter_instance']);
         $options['shortcode_instance'] = intval($_POST[$this->plugin_name.'-shortcode_instance']);
         $options['enable_cache'] = (isset($_POST[$this->plugin_name.'-enable_cache'])) ? true : false;
         if ($options['enable_cache'] === false) {

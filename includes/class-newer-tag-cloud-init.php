@@ -59,7 +59,6 @@ class Newer_Tag_Cloud_Init {
             'db_layout'          => '0.5',
             'widget_instance'    => 0,
             'heading_size'       => 1,
-            'filter_instance'    => 0,
             'shortcode_instance' => 0,
             'instances'         => serialize([0 => 'Default']),
             'enable_cache'       => true
@@ -100,7 +99,6 @@ class Newer_Tag_Cloud_Init {
         $options['db_layout'] = ($options['db_layout'] === null) ? $defaultOptions['db_layout'] : $options['db_layout'];
         $options['widget_instance'] = ($options['widget_instance'] === null) ? $defaultOptions['widget_instance'] : $options['widget_instance'];
         $options['heading_size'] = ($options['heading_size'] === null) ? $defaultOptions['heading_size'] : $options['heading_size'];
-        $options['filter_instance'] = ($options['filter_instance'] === null) ? $defaultOptions['filter_instance'] : $options['filter_instance'];
         $options['shortcode_instance'] = ($options['shortcode_instance'] === null) ? $defaultOptions['shortcode_instance'] : $options['shortcode_instance'];
         $options['instances'] = ($options['instances'] === null) ? $defaultOptions['instances'] : $options['instances'];
         $options['enable_cache'] = ($options['enable_cache'] === null) ? $defaultOptions['enable_cache'] : $options['enable_cache'];
