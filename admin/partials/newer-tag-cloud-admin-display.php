@@ -53,7 +53,8 @@
     </form>
     <br/>
     <form action="" method="post" name="<?php echo $this->options->pluginName ?>-instanceselector">
-        <h2>Settings for instance: <?php echo $this->options->create_selectfield($this->options->get_newertagcloud_instances(), $instanceToUse, $this->options->pluginName.'-instance', ' onChange="submit();"'); ?></h2>
+        <h2>Settings for instance: <?php echo $this->options->create_selectfield($this->options->get_newertagcloud_instances(), $instanceToUse, $this->options->pluginName.'-instance', ' id="selected-instance" onChange="submit();" data-cur="'.$instanceToUse.'"'
+); ?></h2>
     </form>
     <form action="" method="post" name="<?php echo $this->options->pluginName ?>-instance">
         <table class="form-table">
@@ -61,6 +62,10 @@
                 <tr valign="top">
                     <th scope="row">Change instance name?</th>
                     <td><input type="text" id="<?php echo $this->options->pluginName ?>-instancename" name="<?php echo $this->options->pluginName ?>-instancename" value="<?php echo($instanceName); ?>" size="<?php echo(strlen($instanceName)+5); ?>" /></td>
+                </tr>
+                <tr valign="top">
+                    <th scope="row">Change instance widget title?</th>
+                    <td><input type="text" id="<?php echo $this->options->pluginName ?>-instance-title" name="<?php echo $this->options->pluginName ?>-instance-title" value="<?php echo($instanceOptions['title']); ?>" /></td>
                 </tr>
                 <tr valign="top">
                     <th scope="row">How many tags should be shown at most?</th>

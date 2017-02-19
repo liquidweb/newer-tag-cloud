@@ -29,4 +29,10 @@
 	 * practising this, we should strive to set a better example in our own work.
 	 */
 
+	 $( document ).ready(function() {
+		 if ($("#selected-instance").data("cur") != jQuery("#selected-instance").val()) {
+			 $("#selected-instance").val(function(){return jQuery("#selected-instance").data("cur");})
+		 }
+	 });
+
 })( jQuery );

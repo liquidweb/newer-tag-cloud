@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The admin-specific functionality of the plugin.
  *
@@ -202,6 +201,7 @@ class Newer_Tag_Cloud_Admin {
     {
         $options = $this->options->get_newertagcloud_instanceoptions($instanceID);
 
+        $options['title'] = strip_tags(stripslashes($_POST[$this->plugin_name.'-instance-title']));
         $options['max_count'] = intval($_POST[$this->plugin_name.'-max_count']);
         $options['big_size'] = intval($_POST[$this->plugin_name.'-big_size']);
         $options['small_size'] = intval($_POST[$this->plugin_name.'-small_size']);
