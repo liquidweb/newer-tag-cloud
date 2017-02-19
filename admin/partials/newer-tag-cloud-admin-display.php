@@ -129,7 +129,7 @@
         template = template.replace(/</g, "&lt;");
         template = template.replace(/>/g, "&gt;");
         template = template.replace(/%FONTSIZE%/g, "10");
-        template = template.replace(/%SIZETYPE%/g, "px");
+        template = template.replace(/%SIZETYPE%/g, "<?php echo $instanceOptions['size_unit']; ?>");
         template = template.replace(/%TAGURL%/g, "<?php echo get_site_url(); ?>/tags/test");
         template = template.replace(/%TAGNAME%/g, "test");
         div.innerHTML = template;
