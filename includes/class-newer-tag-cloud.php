@@ -184,10 +184,6 @@ class Newer_Tag_Cloud {
 
 		$plugin_public = new Newer_Tag_Cloud_Public( $this->get_plugin_name(), $this->get_version(), $this->options );
 
-        if (function_exists('add_shortcode')) {
-            add_shortcode('newtagcloud', 'newtagcloud_shortcode');
-        }
-
         $this->loader->add_action( 'widgets_init', $plugin_public, 'newertagcloud_init' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
@@ -202,6 +198,18 @@ class Newer_Tag_Cloud {
 	public function run() {
 		$this->loader->run();
 	}
+
+
+    public function getOptions()
+    {
+        return $this->options;
+    }
+
+    public function getTagCloud($widget = true, $instanceID = 0)
+    {
+        $plugin_public = new Newer_Tag_Cloud_Public( $this->get_plugin_name(), $this->get_version(), $this->options );
+        return $plugin_public->generate_newertagcloud($widget, $instanceID);
+    }
 
 	/**
 	 * The name of the plugin used to uniquely identify it within the context of

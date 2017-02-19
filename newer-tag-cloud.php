@@ -68,7 +68,25 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-newer-tag-cloud.php';
 function run_newer_tag_cloud() {
 
 	$plugin = new Newer_Tag_Cloud();
-	$plugin->run();
+    $plugin->run();
+
+    function newertagcloud_shortcode($atts)
+    {
+        $plugin = (new Newer_Tag_Cloud());
+        $globalOptions = $plugin->getOptions()->get_newertagcloud_options();
+
+        extract(shortcode_atts(array('int' => null), $atts));
+        if (!is_numeric($int)) {
+            $int = $globalOptions['shortcode_instance'];
+        }
+        return $plugin->getTagCloud(false, $int);
+    }
+
+    if (function_exists('add_shortcode')) {
+        //var_dump($plugin->get_plugin_name(), function_exists('add_shortcode'), add_shortcode('newtagcloud', 'newertagcloud_shortcode'));
+        add_shortcode($plugin->get_plugin_name(), 'newertagcloud_shortcode');
+    }
+
 
 }
 run_newer_tag_cloud();

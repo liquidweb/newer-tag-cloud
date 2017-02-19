@@ -110,17 +110,6 @@ class Newer_Tag_Cloud_Public {
 
 	}
 
-    public function newtagcloud_shortcode($atts)
-    {
-        $globalOptions = $this->options->get_newertagcloud_options();
-
-        extract(shortcode_atts(array('int' => null), $atts));
-        if (!is_numeric($int)) {
-            $int = $globalOptions['shortcode_instance'];
-        }
-        return $this->options->generate_newertagcloud(false, $int);
-    }
-
     public function generate_newertagcloud($widget = true, $instanceID = 0)
     {
         global $wpdb;
