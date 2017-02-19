@@ -83,10 +83,14 @@ function run_newer_tag_cloud() {
     }
 
     if (function_exists('add_shortcode')) {
-        //var_dump($plugin->get_plugin_name(), function_exists('add_shortcode'), add_shortcode('newtagcloud', 'newertagcloud_shortcode'));
         add_shortcode($plugin->get_plugin_name(), 'newertagcloud_shortcode');
     }
-
-
 }
 run_newer_tag_cloud();
+
+function newerTagCloud($id = 0): void
+{
+	$plugin = (new Newer_Tag_Cloud());
+	echo $plugin->getTagCloud(false, intval($id));
+    return;
+}
