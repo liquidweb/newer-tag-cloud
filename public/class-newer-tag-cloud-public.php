@@ -116,7 +116,7 @@ class Newer_Tag_Cloud_Public {
 
         $globalOptions = $this->options->get_newertagcloud_options();
 
-        if ($globalOptions['enablecache'] && !empty($globalOptions['cache'][$instanceID])) {
+        if ($globalOptions['enable_cache'] && !empty($globalOptions['cache'][$instanceID])) {
             return $globalOptions['cache'][$instanceID];
         }
 
@@ -124,18 +124,17 @@ class Newer_Tag_Cloud_Public {
         $content = [];
         $size = $instanceOptions['big_size'];
 
-        if (is_array($instanceOptions['catfilter'])) {
-            $sqlCatFilter = "`$wpdb->term_relationships`.`object_id` IN (SELECT `object_id` FROM `$wpdb->term_relationships` LEFT JOIN `$wpdb->term_taxonomy` ON `$wpdb->term_relationships`.`term_taxonomy_id` = `$wpdb->term_taxonomy`.`term_taxonomy_id` WHERE `term_id` IN (" . implode(",", $instanceOptions['catfilter']) . ")) AND";
+        if (is_array($instanceOptions['cat_filter'])) {
+            $sqlCatFilter = "`$wpdb->term_relationships`.`object_id` IN (SELECT `object_id` FROM `$wpdb->term_relationships` LEFT JOIN `$wpdb->term_taxonomy` ON `$wpdb->term_relationships`.`term_taxonomy_id` = `$wpdb->term_taxonomy`.`term_taxonomy_id` WHERE `term_id` IN (" . implode(",", $instanceOptions['cat_filter']) . ")) AND";
         } else {
             $sqlCatFilter = "";
         }
 
-
-        if (is_array($instanceOptions['tagfilter'])) {
-            foreach ($instanceOptions['tagfilter'] as $key => $value) {
-                $instanceOptions['tagfilter'][$key] = "'" . $wpdb->escape($value) . "'";
+        if (is_array($instanceOptions['tag_filter'])) {
+            foreach ($instanceOptions['tag_filter'] as $key => $value) {
+                $instanceOptions['tag_filter'][$key] = "'" . $wpdb->escape($value) . "'";
             }
-            $skipTags = implode(",", $instanceOptions['tagfilter']);
+            $skipTags = implode(",", $instanceOptions['tag_filter']);
             $sqlTagFilter = "AND LOWER(`$wpdb->terms`.`name`) NOT IN ($skipTags)";
         } else {
             $sqlTagFilter = "";
@@ -144,10 +143,7 @@ class Newer_Tag_Cloud_Public {
         $query = "SELECT `$wpdb->terms`.`term_id`, `$wpdb->terms`.`name`, LOWER(`$wpdb->terms`.`name`) AS lowername, `$wpdb->term_taxonomy`.`count` FROM `$wpdb->terms` LEFT JOIN `$wpdb->term_taxonomy` ON `$wpdb->terms`.`term_id` = `$wpdb->term_taxonomy`.`term_id` LEFT JOIN `$wpdb->term_relationships` ON `$wpdb->term_taxonomy`.`term_taxonomy_id` = `$wpdb->term_relationships`.`term_taxonomy_id` LEFT JOIN `$wpdb->posts` ON `$wpdb->term_relationships`.`object_id` = `$wpdb->posts`.`ID` WHERE " . $sqlCatFilter . " `$wpdb->term_taxonomy`.`taxonomy` = 'post_tag' AND `$wpdb->term_taxonomy`.`count` > 0 " . $sqlTagFilter . " GROUP BY `$wpdb->terms`.`name` ORDER BY `$wpdb->term_taxonomy`.`count` DESC LIMIT 0, " . $instanceOptions['max_count'];
         $terms = $wpdb->get_results($query);
 
-        //var_dump($terms);die;
-
         $prevCount = $terms[0]->count;
-        $skipTags = explode(",", $instanceOptions['tagfilter']);
         foreach ($terms as $term) {
             if ($prevCount > intval($term->count) && $size > $instanceOptions['small_size']) {
                 $size = $size - $instanceOptions['step'];

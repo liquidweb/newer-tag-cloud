@@ -40,7 +40,7 @@ Follow the steps 1 and 2 above. Step 3 is to place this code into your theme fil
 
 Or you want place a tag cloud in a post, on a page or in a text widget?
 
-Use a shortcode: `[newer-tag-cloud]` or [newer-tag-cloud=1]
+Use a shortcode: `[newer-tag-cloud]` or [newer-tag-cloud int=1]
 
 == Frequently Asked Questions ==
 

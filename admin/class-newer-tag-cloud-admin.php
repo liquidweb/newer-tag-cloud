@@ -40,6 +40,15 @@ class Newer_Tag_Cloud_Admin {
 	private $version;
 
 	/**
+	 * The options of this plugin.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 * @var      array    $options
+	 */
+	private $options;
+
+	/**
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
@@ -70,21 +79,24 @@ class Newer_Tag_Cloud_Admin {
 	 * @since    1.0.0
 	 */
 	public function options_page() {
+        $options = $this->options;
+        $pluginName = $this->pluginName;
+
         // Check if user is Admin
         if ( !current_user_can( 'manage_options' ) )  {
     		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
     	}
 
-        if (isset($_POST[$this->plugin_name.'-saveglobal'])) {
+        if (isset($_POST[$pluginName.'-saveglobal'])) {
             $this->update_newertagcloud_options();
         }
 
-        if (isset($_POST[$this->plugin_name.'-clearcache'])) {
+        if (isset($_POST[$pluginName.'-clearcache'])) {
             $this->newertagcloud_cache_clear();
             echo '<div id="message" class="updated fade"><p><strong>Cache cleared</strong></p></div>';
         }
 
-        $globalOptions = $this->options->get_newertagcloud_options();
+        $globalOptions = $options->get_newertagcloud_options();
 
         require __DIR__ . '/partials/newer-tag-cloud-admin-display.php';
 	}
@@ -95,42 +107,46 @@ class Newer_Tag_Cloud_Admin {
 	 * @since    1.0.0
 	 */
 	public function instance_options_page() {
+        // Init basic variables used in partial
+        $options = $this->options;
+        $pluginName = $this->plugin_name;
         // Check if user is Admin
         if ( !current_user_can( 'manage_options' ) )  {
-    		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
+    		wp_die( __( 'You do not have sufficient permissqions to access this page.' ) );
     	}
 
-        $orderOptions = $this->options->orderOptions;
+        $orderOptions = $options->orderOptions;
 
-        if (isset($_POST[$this->plugin_name.'-instance'])) {
-            $instanceToUse = intval($_POST[$this->plugin_name.'-instance']);
+        if (isset($_POST[$pluginName.'-instance'])) {
+            $instanceToUse = intval($_POST[$pluginName.'-instance']);
         } else {
             $instanceToUse = 0;
         }
 
-        if (isset($_POST[$this->plugin_name.'-saveinstance'])) {
-            $this->update_newertagcloud_instanceoptions(intval($_POST[$this->plugin_name.'-instance']));
+        if (isset($_POST[$pluginName.'-saveinstance'])) {
+            $this->update_newertagcloud_instanceoptions(intval($_POST[$pluginName.'-instance']));
         }
 
-        if (isset($_POST[$this->plugin_name.'-resetinstance'])) {
-            delete_option($this->plugin_name.'_instance' . intval($_POST[$this->plugin_name.'-instance']));
+        if (isset($_POST[$pluginName.'-resetinstance'])) {
+            delete_option($pluginName.'_instance' . intval($_POST[$pluginName.'-instance']));
             echo '<div id="message" class="updated fade"><p><strong>';
             _e('Instance reseted.');
             echo '</strong></p></div>';
         }
 
-        if (isset($_POST[$this->plugin_name.'-deleteinstance'])) {
-            $this->delete_newertagcloud_instance(intval($_POST[$this->plugin_name.'-instance']));
+        if (isset($_POST[$pluginName.'-deleteinstance'])) {
+            $this->delete_newertagcloud_instance(intval($_POST[$pluginName.'-instance']));
             $instanceToUse = 0;
         }
 
-        $globalOptions = $this->options->get_newertagcloud_options();
-        $instanceOptions = $this->options->get_newertagcloud_instanceoptions($instanceToUse);
+        $globalOptions = $options->get_newertagcloud_options();
+        $instanceOptions = $options->get_newertagcloud_instanceoptions($instanceToUse);
+
         $instanceOptions['glue'] = str_replace(" ", "%BLANK%", $instanceOptions['glue']);
         $instanceName = unserialize($globalOptions['instances']);
         $instanceName = $instanceName[$instanceToUse];
-        if (is_array($instanceOptions['tagfilter'])) {
-            $tagFilter = implode(",", $instanceOptions['tagfilter']);
+        if (is_array($instanceOptions['tag_filter'])) {
+            $tagFilter = implode(",", $instanceOptions['tag_filter']);
         } else {
             $tagFilter = "";
         }
@@ -216,6 +232,7 @@ class Newer_Tag_Cloud_Admin {
 
     public function update_newertagcloud_instanceoptions($instanceID)
     {
+
         $options = $this->options->get_newertagcloud_instanceoptions($instanceID);
 
         $options['title'] = strip_tags(stripslashes($_POST[$this->plugin_name.'-instance-title']));
@@ -230,16 +247,16 @@ class Newer_Tag_Cloud_Admin {
         $options['glue'] = stripslashes(str_replace("%BLANK%", " ", $_POST[$this->plugin_name.'-glue']));
         $options['order'] = stripslashes(str_replace("%BLANK%", " ", $_POST[$this->plugin_name.'-order']));
 
-        if (empty($_POST[$this->plugin_name.'-tagfilter'])) {
-            unset($options['tagfilter']);
+        if (empty($_POST[$this->plugin_name.'-tag_filter'])) {
+            unset($options['tag_filter']);
         } else {
-            $options['tagfilter'] = explode(",", strtolower((stripslashes($_POST[$this->plugin_name.'-tagfilter']))));
+            $options['tag_filter'] = explode(",", strtolower((stripslashes($_POST[$this->plugin_name.'-tag_filter']))));
         }
 
-        unset($options['catfilter']);
-        if (is_array($_POST[$this->plugin_name.'-catfilter'])) {
-            foreach ($_POST[$this->plugin_name.'-catfilter'] as $id => $value) {
-                $options['catfilter'][] = $id;
+        unset($options['cat_filter']);
+        if (is_array($_POST[$this->plugin_name.'-cat_filter'])) {
+            foreach ($_POST[$this->plugin_name.'-cat_filter'] as $id => $value) {
+                $options['cat_filter'][] = $id;
             }
         }
 

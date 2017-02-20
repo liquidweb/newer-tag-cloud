@@ -70,24 +70,26 @@ function run_newer_tag_cloud() {
 	$plugin = new Newer_Tag_Cloud();
     $plugin->run();
 
-    function newertagcloud_shortcode($atts)
-    {
-        $plugin = (new Newer_Tag_Cloud());
-        $globalOptions = $plugin->getOptions()->get_newertagcloud_options();
-
-        extract(shortcode_atts(array('int' => null), $atts));
-        if (!is_numeric($int)) {
-            $int = $globalOptions['shortcode_instance'];
-        }
-        return $plugin->getTagCloud(false, $int);
-    }
-
     if (function_exists('add_shortcode')) {
         add_shortcode($plugin->get_plugin_name(), 'newertagcloud_shortcode');
     }
 }
 run_newer_tag_cloud();
 
+// Shortcode function
+function newertagcloud_shortcode($atts)
+{
+    $plugin = (new Newer_Tag_Cloud());
+    $globalOptions = $plugin->getOptions()->get_newertagcloud_options();
+
+    extract(shortcode_atts(array('int' => null), $atts));
+    if (!is_numeric($int)) {
+        $int = $globalOptions['shortcode_instance'];
+    }
+    return $plugin->getTagCloud(false, $int);
+}
+
+// function for themes and other plugins
 function newerTagCloud($id = 0): void
 {
 	$plugin = (new Newer_Tag_Cloud());

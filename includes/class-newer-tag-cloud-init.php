@@ -29,7 +29,7 @@
  */
 class Newer_Tag_Cloud_Init {
 
-    protected $name;
+    protected $pluginName;
 
     public $defaultOptions;
 
@@ -61,16 +61,16 @@ class Newer_Tag_Cloud_Init {
             'heading_size'       => 1,
             'shortcode_instance' => 0,
             'instances'         => serialize([0 => 'Default']),
-            'enable_cache'       => true
+            'enable_cache'       => false
         ];
     }
 
     private function get_instance_defaults()
     {
         return [
+            'title'             => 'Newer Tag Cloud',
             'max_count'          => 10,
-            'title'             => 'Tag Cloud',
-            'big_size'           => 18,
+            'big_size'           => 24,
             'small_size'         => 10,
             'step'              => 2,
             'size_unit'          => 'px',
@@ -78,7 +78,8 @@ class Newer_Tag_Cloud_Init {
             'html_after'        => '</ul>',
             'entry_layout'      => '<li><a style="font-size:%FONTSIZE%%SIZETYPE%" href="%TAGURL%" target="_self">%TAGNAME%</a></li>',
             'glue'              => ' ',
-            'filter'            => false,
+            'cat_filter'        => false,
+            'tag_filter'        => false,
             'order'             => 'name'
         ];
     }
@@ -95,35 +96,41 @@ class Newer_Tag_Cloud_Init {
     {
         $defaultOptions = $this->defaultOptions;
         $options = get_option($this->pluginName);
-        // Compare options found to defaults
-        $options['db_layout'] = ($options['db_layout'] === null) ? $defaultOptions['db_layout'] : $options['db_layout'];
-        $options['widget_instance'] = ($options['widget_instance'] === null) ? $defaultOptions['widget_instance'] : $options['widget_instance'];
-        $options['heading_size'] = ($options['heading_size'] === null) ? $defaultOptions['heading_size'] : $options['heading_size'];
-        $options['shortcode_instance'] = ($options['shortcode_instance'] === null) ? $defaultOptions['shortcode_instance'] : $options['shortcode_instance'];
-        $options['instances'] = ($options['instances'] === null) ? $defaultOptions['instances'] : $options['instances'];
-        $options['enable_cache'] = ($options['enable_cache'] === null) ? $defaultOptions['enable_cache'] : $options['enable_cache'];
-        // return options
-        return $options;
+        if ($options !== false && is_array($options) === true) {
+            // Compare options found to defaults
+            $options['db_layout'] = ($options['db_layout'] === null) ? $defaultOptions['db_layout'] : $options['db_layout'];
+            $options['widget_instance'] = ($options['widget_instance'] === null) ? $defaultOptions['widget_instance'] : $options['widget_instance'];
+            $options['heading_size'] = ($options['heading_size'] === null) ? $defaultOptions['heading_size'] : $options['heading_size'];
+            $options['shortcode_instance'] = ($options['shortcode_instance'] === null) ? $defaultOptions['shortcode_instance'] : $options['shortcode_instance'];
+            $options['instances'] = ($options['instances'] === null) ? $defaultOptions['instances'] : $options['instances'];
+            $options['enable_cache'] = ($options['enable_cache'] === null) ? $defaultOptions['enable_cache'] : $options['enable_cache'];
+            // return options
+            return $options;
+        }
+        return $defaultOptions;
     }
 
     public function get_newertagcloud_instanceoptions($instanceID = 0)
     {
         $instanceDefaults = $this->instanceDefaults;
-
         $options = get_option($this->pluginName.'_instance' . $instanceID);
-        $options['title'] = ($options['title'] === null) ? $instanceDefaults['title'] : $options['title'];
-        $options['max_count'] = ($options['max_count'] === null) ? $instanceDefaults['max_count'] : $options['max_count'];
-        $options['big_size'] = ($options['big_size'] === null) ? $instanceDefaults['big_size'] : $options['big_size'];
-        $options['small_size'] = ($options['small_size'] === null) ? $instanceDefaults['small_size'] : $options['small_size'];
-        $options['step'] = ($options['step'] === null) ? $instanceDefaults['step'] : $options['step'];
-        $options['size_unit'] = ($options['size_unit'] === null) ? $instanceDefaults['size_unit'] : $options['size_unit'];
-        $options['html_before'] = ($options['html_before'] === null) ? $instanceDefaults['html_before'] : $options['html_before'];
-        $options['html_after'] = ($options['html_after'] === null) ? $instanceDefaults['html_after'] : $options['html_after'];
-        $options['entry_layout'] = ($options['entry_layout'] === null) ? $instanceDefaults['entry_layout'] : $options['entry_layout'];
-        $options['glue'] = ($options['glue'] === null) ? $instanceDefaults['glue'] : $options['glue'];
-        $options['order'] = ($options['order'] === null) ? $instanceDefaults['order'] : $options['order'];
-
-        return $options;
+        if ($options !== false && is_array($options) === true) {
+            $options['title'] = ($options['title'] === null) ? $instanceDefaults['title'] : $options['title'];
+            $options['max_count'] = ($options['max_count'] === null) ? $instanceDefaults['max_count'] : $options['max_count'];
+            $options['big_size'] = ($options['big_size'] === null) ? $instanceDefaults['big_size'] : $options['big_size'];
+            $options['small_size'] = ($options['small_size'] === null) ? $instanceDefaults['small_size'] : $options['small_size'];
+            $options['step'] = ($options['step'] === null) ? $instanceDefaults['step'] : $options['step'];
+            $options['size_unit'] = ($options['size_unit'] === null) ? $instanceDefaults['size_unit'] : $options['size_unit'];
+            $options['html_before'] = ($options['html_before'] === null) ? $instanceDefaults['html_before'] : $options['html_before'];
+            $options['html_after'] = ($options['html_after'] === null) ? $instanceDefaults['html_after'] : $options['html_after'];
+            $options['entry_layout'] = ($options['entry_layout'] === null) ? $instanceDefaults['entry_layout'] : $options['entry_layout'];
+            $options['glue'] = ($options['glue'] === null) ? $instanceDefaults['glue'] : $options['glue'];
+            $options['cat_filter'] = ($options['cat_filter'] === null) ? $instanceDefaults['cat_filter'] : $options['cat_filter'];
+            $options['tag_filter'] = ($options['tag_filter'] === null) ? $instanceDefaults['tag_filter'] : $options['tag_filter'];
+            $options['order'] = ($options['order'] === null) ? $instanceDefaults['order'] : $options['order'];
+            return $options;
+        }
+        return $instanceDefaults;
     }
 
     public function create_selectfield($options, $preselect, $name, $extra = "")
@@ -150,7 +157,7 @@ class Newer_Tag_Cloud_Init {
         return $instances;
     }
 
-    public function catfilter_list($catfilter)
+    public function cat_filter_list($catfilter)
     {
         global $wpdb;
 
@@ -159,12 +166,12 @@ class Newer_Tag_Cloud_Init {
         foreach ($terms as $term) {
             if (is_array($catfilter)) {
                 if (in_array($term->term_id, $catfilter)) {
-                    echo '<input type="checkbox" name="'.$this->pluginName.'-catfilter[' . $term->term_id . ']" value="dofilter" checked="checked" /> ' . $term->name . '<br/>';
+                    echo '<input type="checkbox" name="'.$this->pluginName.'-cat_filter[' . $term->term_id . ']" value="dofilter" checked="checked" /> ' . $term->name . '<br/>';
                 } else {
-                    echo '<input type="checkbox" name="'.$this->pluginName.'-catfilter[' . $term->term_id . ']" value="dofilter" /> ' . $term->name . '<br/>';
+                    echo '<input type="checkbox" name="'.$this->pluginName.'-cat_filter[' . $term->term_id . ']" value="dofilter" /> ' . $term->name . '<br/>';
                 }
             } else {
-                echo '<input type="checkbox" name="'.$this->pluginName.'-catfilter[' . $term->term_id . ']" value="dofilter" /> ' . $term->name . '<br/>';
+                echo '<input type="checkbox" name="'.$this->pluginName.'-cat_filter[' . $term->term_id . ']" value="dofilter" /> ' . $term->name . '<br/>';
             }
         }
     }
@@ -173,7 +180,7 @@ class Newer_Tag_Cloud_Init {
     {
         global $wpdb;
 
-        $globalOptions = $this->get_newtagcloud_options();
+        $globalOptions = $this->get_newertagcloud_options();
 
         if ($globalOptions['enablecache'] && !empty($globalOptions['cache'][$instanceID])) {
             if ($display) {
@@ -188,17 +195,17 @@ class Newer_Tag_Cloud_Init {
         $content = [];
         $size = $instanceOptions['big_size'];
 
-        if (is_array($instanceOptions['catfilter'])) {
-            $sqlCatFilter = "`$wpdb->term_relationships`.`object_id` IN (SELECT `object_id` FROM `$wpdb->term_relationships` LEFT JOIN `$wpdb->term_taxonomy` ON `$wpdb->term_relationships`.`term_taxonomy_id` = `$wpdb->term_taxonomy`.`term_taxonomy_id` WHERE `term_id` IN (" . implode(",", $instanceOptions['catfilter']) . ")) AND";
+        if (is_array($instanceOptions['cat_filter'])) {
+            $sqlCatFilter = "`$wpdb->term_relationships`.`object_id` IN (SELECT `object_id` FROM `$wpdb->term_relationships` LEFT JOIN `$wpdb->term_taxonomy` ON `$wpdb->term_relationships`.`term_taxonomy_id` = `$wpdb->term_taxonomy`.`term_taxonomy_id` WHERE `term_id` IN (" . implode(",", $instanceOptions['cat_filter']) . ")) AND";
         } else {
             $sqlCatFilter = "";
         }
 
-        if (is_array($instanceOptions['tagfilter'])) {
-            foreach ($instanceOptions['tagfilter'] as $key => $value) {
-                $instanceOptions['tagfilter'][$key] = "'" . $wpdb->escape($value) . "'";
+        if (is_array($instanceOptions['tag_filter'])) {
+            foreach ($instanceOptions['tag_filter'] as $key => $value) {
+                $instanceOptions['tag_filter'][$key] = "'" . $wpdb->escape($value) . "'";
             }
-            $skipTags = implode(",", $instanceOptions['tagfilter']);
+            $skipTags = implode(",", $instanceOptions['tag_filter']);
             $sqlTagFilter = "AND LOWER(`$wpdb->terms`.`name`) NOT IN ($skipTags)";
         } else {
             $sqlTagFilter = "";
@@ -207,7 +214,7 @@ class Newer_Tag_Cloud_Init {
         $terms = $wpdb->get_results($query);
 
         $prevCount = $terms[0]->count;
-        $skipTags = explode(",", $instanceOptions['tagfilter']);
+        $skipTags = explode(",", $instanceOptions['tag_filter']);
         foreach ($terms as $term) {
             if ($prevCount > intval($term->count) && $size > $instanceOptions['small_size']) {
                 $size = $size - $instanceOptions['step'];
