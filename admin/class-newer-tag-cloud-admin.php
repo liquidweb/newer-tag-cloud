@@ -80,7 +80,7 @@ class Newer_Tag_Cloud_Admin {
 	 */
 	public function options_page() {
         $options = $this->options;
-        $pluginName = $this->pluginName;
+        $pluginName = $this->plugin_name;
 
         // Check if user is Admin
         if ( !current_user_can( 'manage_options' ) )  {
@@ -235,12 +235,12 @@ class Newer_Tag_Cloud_Admin {
 
         $options = $this->options->get_newertagcloud_instanceoptions($instanceID);
 
-        $options['title'] = strip_tags(stripslashes($_POST[$this->plugin_name.'-instance-title']));
+        $options['title'] = sanitize_text_field($_POST[$this->plugin_name.'-instance-title']);
         $options['max_count'] = intval($_POST[$this->plugin_name.'-max_count']);
-        $options['big_size'] = intval($_POST[$this->plugin_name.'-big_size']);
-        $options['small_size'] = intval($_POST[$this->plugin_name.'-small_size']);
-        $options['step'] = intval($_POST[$this->plugin_name.'-step']);
-        $options['size_unit'] = strip_tags(stripslashes($_POST[$this->plugin_name.'-size_unit']));
+        $options['big_size'] = floatval($_POST[$this->plugin_name.'-big_size']);
+        $options['small_size'] = floatval($_POST[$this->plugin_name.'-small_size']);
+        $options['step'] = floatval($_POST[$this->plugin_name.'-step']);
+        $options['size_unit'] = sanitize_text_field($_POST[$this->plugin_name.'-size_unit']);
         $options['html_before'] = stripslashes($_POST[$this->plugin_name.'-html_before']);
         $options['html_after'] = stripslashes($_POST[$this->plugin_name.'-htmlafter']);
         $options['entry_layout'] = stripslashes($_POST[$this->plugin_name.'-entrylayout']);
