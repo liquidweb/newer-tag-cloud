@@ -14,10 +14,10 @@
 ?>
 
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
-<h2>Newer Tag Cloud by <a href="https://www.liquidweb.com/" target="_blank">Liquid Web</a></h2>
-<h1>Global Settings</h1>
-
-<div class="wrap left-admin">
+<section class="wrap">
+    <h1>Newer Tag Cloud by <a href="https://www.liquidweb.com/" target="_blank">Liquid Web</a></h1>
+    <h2>Global Settings</h2>
+<div class="left-admin">
     <form action="" method="post" name="<?php echo $pluginName ?>-globalsettings">
         <table class="form-table">
             <tbody>
@@ -56,8 +56,8 @@
         </p>
     </form>
 </div>
-<div class="wrap right-admin">
-    <h2>About the Plugin</h2>
+<div class="right-admin">
+    <h3>About the Plugin</h3>
     <p>
         Newer Tag Cloud, inspired by New Tag Cloud, is a WordPress plugin that generates a tag clouds.<br /><br />
         The original New Tag Cloud plugin has been without updates for 7 years and this has recently caused issues with
@@ -71,3 +71,4 @@
         <li>funnydingo - Creator of Inspiring Plugin</li>
     </ul>
 </div>
+</section>

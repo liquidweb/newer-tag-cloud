@@ -12,10 +12,10 @@
  * @subpackage Newer_Tag_Cloud/admin/partials
  */
 ?>
-
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
-<h2>Newer Tag Cloud by <a href="https://www.liquidweb.com/" target="_blank">Liquid Web</a></h2>
-<h1>
+<section class="wrap">
+<h1>Newer Tag Cloud by <a href="https://www.liquidweb.com/" target="_blank">Liquid Web</a></h1>
+<h2>
     <form action="" method="post" name="<?php echo $pluginName ?>-instanceselector">
         Instance Settings: <?php
         echo $options->create_selectfield(
@@ -25,9 +25,9 @@
         ' id="selected-instance" onChange="submit();" data-cur="'.$instanceToUse.'"'
     ); ?>
 </form>
-</h1>
+</h2>
 
-<div class="wrap">
+<div>
     <form action="" method="post" name="<?php echo $pluginName ?>-instance">
         <table class="form-table">
             <tbody>
@@ -98,6 +98,7 @@
         </p>
     </form>
 </div>
+</section>
 <script type="text/javascript">
     function update_example()
     {
