@@ -33,32 +33,33 @@ if ( ! defined( 'WPINC' ) ) {
 // Include the autoloader so we can dynamically include the rest of the classes.
 require_once( trailingslashit( dirname( __FILE__ ) ) . 'includes/autoloader.php' );
 
+use LiquidWeb_Newer_Tag_Cloud\Lib\Newer_Tag_Cloud;
+use LiquidWeb_Newer_Tag_Cloud\Lib\Newer_Tag_Cloud_Activator;
+use LiquidWeb_Newer_Tag_Cloud\Lib\Newer_Tag_Cloud_Deactivator;
+
 /**
  * The code that runs during plugin activation.
  * This action is documented in lib/class-newer-tag-cloud-activator.php
  */
 function activate_newer_tag_cloud() {
-	require_once plugin_dir_path( __FILE__ ) . 'lib/class-newer-tag-cloud-activator.php';
 	Newer_Tag_Cloud_Activator::activate();
 }
+register_activation_hook( __FILE__, __NAMESPACE__ . '\\activate_newer_tag_cloud' );
 
 /**
  * The code that runs during plugin deactivation.
  * This action is documented in lib/class-newer-tag-cloud-deactivator.php
  */
 function deactivate_newer_tag_cloud() {
-	require_once plugin_dir_path( __FILE__ ) . 'lib/class-newer-tag-cloud-deactivator.php';
 	Newer_Tag_Cloud_Deactivator::deactivate();
 }
 
-register_activation_hook( __FILE__, 'activate_newer_tag_cloud' );
-register_deactivation_hook( __FILE__, 'deactivate_newer_tag_cloud' );
+register_deactivation_hook( __FILE__, __NAMESPACE__ . '\\deactivate_newer_tag_cloud' );
 
 /**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path( __FILE__ ) . 'lib/class-newer-tag-cloud.php';
 
 add_action( 'plugins_loaded', __NAMESPACE__ . '\\run_newer_tag_cloud' );/**
  * Begins execution of the plugin.
@@ -71,11 +72,11 @@ add_action( 'plugins_loaded', __NAMESPACE__ . '\\run_newer_tag_cloud' );/**
  */
 function run_newer_tag_cloud() {
 
-	$plugin = new Lib\Newer_Tag_Cloud();
+	$plugin = new Newer_Tag_Cloud();
     $plugin->run();
 
     if (function_exists('add_shortcode')) {
-        add_shortcode($plugin->get_plugin_name(), 'newertagcloud_shortcode');
+        add_shortcode($plugin->get_plugin_name(), __NAMESPACE__ . '\\newertagcloud_shortcode');
     }
 }
 //run_newer_tag_cloud();
