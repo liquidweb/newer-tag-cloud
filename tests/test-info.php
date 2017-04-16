@@ -4,6 +4,7 @@
  *
  * @package Newer_Tag_Cloud
  */
+namespace LiquidWeb_Newer_Tag_Cloud\Tests;
 
 /**
  * Sample test case.

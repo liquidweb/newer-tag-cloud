@@ -7,7 +7,7 @@ Stable tag: 4.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-A small plugin providing a nice tag cloud feature. Inspired by New Tag Cloud.
+A small plugin providing a neat tag cloud feature. Inspired by New Tag Cloud.
 
 == Description ==
 

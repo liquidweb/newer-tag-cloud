@@ -8,6 +8,9 @@
  * @package    Newer_Tag_Cloud
  * @subpackage Newer_Tag_Cloud/admin
  */
+namespace LiquidWeb_Newer_Tag_Cloud\Admin;
+
+use \LiquidWeb_Newer_Tag_Cloud\Front\Newer_Tag_Cloud_Front as Newer_Tag_Cloud_Front;
 
 /**
  * The admin-specific functionality of the plugin.
@@ -310,7 +313,7 @@ class Newer_Tag_Cloud_Admin {
             return;
         }
 
-		$plugin_public = new Newer_Tag_Cloud_Public( $this->plugin_name, $this->version, $this->options );
+		$plugin_public = new Newer_Tag_Cloud_Front( $this->plugin_name, $this->version, $this->options );
 		wp_register_sidebar_widget($this->plugin_name.'-lw', 'Newer Tag Cloud', [$plugin_public, 'print_newertagcloud_widget']);
         wp_register_widget_control($this->plugin_name.'-lw', 'Newer Tag Cloud', [$this, 'newertagcloud_control'], 50, 10);
     }
