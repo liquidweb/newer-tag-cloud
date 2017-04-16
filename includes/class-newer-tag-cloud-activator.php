@@ -9,6 +9,7 @@
  * @package    Newer_Tag_Cloud
  * @subpackage Newer_Tag_Cloud/includes
  */
+namespace LiquidWeb_Newer_Tag_Cloud;
 
 /**
  * Fired during plugin activation.

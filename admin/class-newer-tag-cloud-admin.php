@@ -8,6 +8,7 @@
  * @package    Newer_Tag_Cloud
  * @subpackage Newer_Tag_Cloud/admin
  */
+namespace LiquidWeb_Newer_Tag_Cloud\Admin;
 
 /**
  * The admin-specific functionality of the plugin.

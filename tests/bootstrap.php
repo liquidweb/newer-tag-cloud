@@ -4,6 +4,7 @@
  *
  * @package Newer_Tag_Cloud
  */
+namespace LiquidWeb_Newer_Tag_Cloud\Tests;
 
 $_tests_dir = getenv( 'WP_TESTS_DIR' );
 if ( ! $_tests_dir ) {

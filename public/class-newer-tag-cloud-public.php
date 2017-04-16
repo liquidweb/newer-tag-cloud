@@ -9,6 +9,7 @@
  * @package    Newer_Tag_Cloud
  * @subpackage Newer_Tag_Cloud/public
  */
+namespace LiquidWeb_Newer_Tag_Cloud\Public;
 
 /**
  * The public-facing functionality of the plugin.

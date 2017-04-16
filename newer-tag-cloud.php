@@ -24,6 +24,8 @@
  * Text Domain:       newer-tag-cloud
  */
 
+namespace LiquidWeb_Newer_Tag_Cloud;
+
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 	die;
