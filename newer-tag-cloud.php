@@ -23,7 +23,6 @@
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       newer-tag-cloud
  */
-
 namespace LiquidWeb_Newer_Tag_Cloud;
 
 // If this file is called directly, abort.
@@ -31,21 +30,24 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+// Include the autoloader so we can dynamically include the rest of the classes.
+require_once( trailingslashit( dirname( __FILE__ ) ) . 'lib/autoloader.php' );
+
 /**
  * The code that runs during plugin activation.
- * This action is documented in includes/class-newer-tag-cloud-activator.php
+ * This action is documented in lib/class-newer-tag-cloud-activator.php
  */
 function activate_newer_tag_cloud() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-newer-tag-cloud-activator.php';
+	require_once plugin_dir_path( __FILE__ ) . 'lib/class-newer-tag-cloud-activator.php';
 	Newer_Tag_Cloud_Activator::activate();
 }
 
 /**
  * The code that runs during plugin deactivation.
- * This action is documented in includes/class-newer-tag-cloud-deactivator.php
+ * This action is documented in lib/class-newer-tag-cloud-deactivator.php
  */
 function deactivate_newer_tag_cloud() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-newer-tag-cloud-deactivator.php';
+	require_once plugin_dir_path( __FILE__ ) . 'lib/class-newer-tag-cloud-deactivator.php';
 	Newer_Tag_Cloud_Deactivator::deactivate();
 }
 
@@ -56,9 +58,9 @@ register_deactivation_hook( __FILE__, 'deactivate_newer_tag_cloud' );
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path( __FILE__ ) . 'includes/class-newer-tag-cloud.php';
+require plugin_dir_path( __FILE__ ) . 'lib/class-newer-tag-cloud.php';
 
-/**
+add_action( 'plugins_loaded', __NAMESPACE__ . '\\run_newer_tag_cloud' );/**
  * Begins execution of the plugin.
  *
  * Since everything within the plugin is registered via hooks,
@@ -76,7 +78,7 @@ function run_newer_tag_cloud() {
         add_shortcode($plugin->get_plugin_name(), 'newertagcloud_shortcode');
     }
 }
-run_newer_tag_cloud();
+//run_newer_tag_cloud();
 
 // Shortcode function
 function newertagcloud_shortcode($atts)

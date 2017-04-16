@@ -109,19 +109,19 @@ class Newer_Tag_Cloud {
 		 * The class responsible for defining the options and basic logic of the
 		 * core plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-newer-tag-cloud-init.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'lib/class-newer-tag-cloud-init.php';
 
 		/**
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-newer-tag-cloud-loader.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'lib/class-newer-tag-cloud-loader.php';
 
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-newer-tag-cloud-i18n.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'lib/class-newer-tag-cloud-i18n.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
