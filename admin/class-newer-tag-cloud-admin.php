@@ -60,7 +60,6 @@ class Newer_Tag_Cloud_Admin {
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
         $this->options = $options;
-
 	}
 
     /**
@@ -142,7 +141,7 @@ class Newer_Tag_Cloud_Admin {
         $globalOptions = $options->get_newertagcloud_options();
         $instanceOptions = $options->get_newertagcloud_instanceoptions($instanceToUse);
 
-        $instanceOptions['glue'] = str_replace(" ", "%BLANK%", $instanceOptions['glue']);
+        $instanceOptions['glue'] = str_replace(" ", "%SPACE%", $instanceOptions['glue']);
         $instanceName = unserialize($globalOptions['instances']);
         $instanceName = $instanceName[$instanceToUse];
         if (is_array($instanceOptions['tag_filter'])) {
@@ -244,8 +243,8 @@ class Newer_Tag_Cloud_Admin {
         $options['html_before'] = stripslashes($_POST[$this->plugin_name.'-html_before']);
         $options['html_after'] = stripslashes($_POST[$this->plugin_name.'-htmlafter']);
         $options['entry_layout'] = stripslashes($_POST[$this->plugin_name.'-entrylayout']);
-        $options['glue'] = stripslashes(str_replace("%BLANK%", " ", $_POST[$this->plugin_name.'-glue']));
-        $options['order'] = stripslashes(str_replace("%BLANK%", " ", $_POST[$this->plugin_name.'-order']));
+        $options['glue'] = stripslashes(str_replace("%SPACE%", " ", $_POST[$this->plugin_name.'-glue']));
+        $options['order'] = stripslashes(str_replace("%SPACE%", " ", $_POST[$this->plugin_name.'-order']));
 
         if (empty($_POST[$this->plugin_name.'-tag_filter'])) {
             unset($options['tag_filter']);
@@ -292,6 +291,28 @@ class Newer_Tag_Cloud_Admin {
         echo '<div id="message" class="updated fade"><p><strong>';
         _e('Instance deleted.');
         echo '</strong></p></div>';
+    }
+
+		public function newertagcloud_control()
+    {
+        $globalOptions = $this->options->get_newertagcloud_options();
+        $instanceOptions = $this->options->get_newertagcloud_instanceoptions($globalOptions['widget_instance']);
+        if (isset($_POST[$this->plugin_name.'-title'])) {
+            $instanceOptions['title'] = strip_tags(stripslashes($_POST[$this->plugin_name.'-title']));
+            update_option($this->plugin_name.'_instance' . $globalOptions['widget_instance'], $instanceOptions);
+        }
+        echo '<p style="text-align:right;"><label for="'.$this->plugin_name.'-title">Title: <input style="width: 250px;" id="'.$this->plugin_name.'-title" name="'.$this->plugin_name.'-title" type="text" value="'.$instanceOptions['title'].'" /></label></p>';
+    }
+
+		public function newertagcloud_widget_init()
+    {
+        if (!function_exists('wp_register_sidebar_widget') || !function_exists('wp_register_widget_control')) {
+            return;
+        }
+
+		$plugin_public = new Newer_Tag_Cloud_Public( $this->plugin_name, $this->version, $this->options );
+		wp_register_sidebar_widget($this->plugin_name.'-lw', 'Newer Tag Cloud', [$plugin_public, 'print_newertagcloud_widget']);
+        wp_register_widget_control($this->plugin_name.'-lw', 'Newer Tag Cloud', [$this, 'newertagcloud_control'], 50, 10);
     }
 
 }

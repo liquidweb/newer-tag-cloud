@@ -16,8 +16,8 @@
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
 <section class="wrap">
     <h1>Newer Tag Cloud by <a href="https://www.liquidweb.com/" target="_blank">Liquid Web</a></h1>
-    <h2>Global Settings</h2>
 <div class="left-admin">
+  <h2>Global Settings</h2>
     <form action="" method="post" name="<?php echo $pluginName ?>-globalsettings">
         <table class="form-table">
             <tbody>
@@ -57,6 +57,8 @@
     </form>
 </div>
 <div class="right-admin">
+  <h2>Plugin Information</h2>
+
     <h3>About the Plugin</h3>
     <p>
         Newer Tag Cloud, inspired by New Tag Cloud, is a WordPress plugin that generates a tag clouds.<br /><br />
@@ -64,11 +66,16 @@
         modern WordPress versions. As a result a privately maintained version was created within
         <a href="https://www.liquidweb.com/" target="_blank">Liquid Web</a>.<br /><br />
         As this new plugin may benefit others who were still using the now unmaintained 'New Tag Cloud' it's now been
-        released. The plguin is provided as is and there is no support provided or guaranteed.<br />
+        released. The plguin is provided as is and there is no support provided or guaranteed.
+    </p>
+    <h3>Disclaimer</h3>
+<p>
+  This plugin is provided “as is.” It is free software licensed under the terms of the <a href="http://www.gnu.org/licenses/gpl.html" title=“GNU General Public License 3.0”>GNU General Public License 3.0 (GPL)</a>. It is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. The plugin creator and/or maintainer are not liable for any damages or losses. Your only recourse is to stop using this plugin.
+</p>
     <h3>Credits:</h3>
     <ul>
-        <li>liquidwebdan - Current Maintainer</li>
-        <li>funnydingo - Creator of Inspiring Plugin</li>
+        <li><a href="https://profiles.wordpress.org/liquidwebdan">liquidwebdan</a> - Current Maintainer</li>
+        <li><a href="https://profiles.wordpress.org/funnydingo">funnydingo</a> - Creator of Inspiring Plugin</li>
     </ul>
 </div>
 </section>

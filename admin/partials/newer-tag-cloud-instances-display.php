@@ -72,8 +72,8 @@
                     <td><input type="text" id="<?php echo $pluginName ?>-entrylayout" name="<?php echo $pluginName ?>-entrylayout" value="<?php echo(htmlentities($instanceOptions['entry_layout'])); ?>" size="<?php echo(strlen($instanceOptions['entry_layout'])+5); ?>" onkeyup="update_example();" onkeydown="update_example();" /><br/><div id="<?php echo $pluginName ?>-entrylayout-example"></div></td>
                 </tr>
                 <tr valign="top">
-                    <th scope="row">Which glue char you want use?</th>
-                    <td><input type="text" id="<?php echo $pluginName ?>-glue" name="<?php echo $pluginName ?>-glue" value="<?php echo(htmlentities($instanceOptions['glue'])); ?>" size="<?php echo(strlen($instanceOptions['glue'])+5); ?>" /><input type="button" value="I want use a blank" onClick="glueChar('%BLANK%')"/></td>
+                    <th scope="row">Which glue character do you want use?</th>
+                    <td><input type="text" id="<?php echo $pluginName ?>-glue" name="<?php echo $pluginName ?>-glue" value="<?php echo(htmlentities($instanceOptions['glue'])); ?>" size="<?php echo(strlen($instanceOptions['glue'])+5); ?>" /><input type="button" value="I want use a space" onClick="glueChar('%SPACE%')"/></td>
                 <tr/>
                 <tr valign="top">
                     <th scope="row">Which order type you want to use to sort the tags?</th>

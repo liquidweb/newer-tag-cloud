@@ -61,7 +61,6 @@ class Newer_Tag_Cloud_Public {
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
         $this->options = $options;
-
 	}
 
 	/**
@@ -110,97 +109,22 @@ class Newer_Tag_Cloud_Public {
 
 	}
 
-    public function generate_newertagcloud($widget = true, $instanceID = 0)
-    {
-        global $wpdb;
-
-        $globalOptions = $this->options->get_newertagcloud_options();
-
-        if ($globalOptions['enable_cache'] && !empty($globalOptions['cache'][$instanceID])) {
-            return $globalOptions['cache'][$instanceID];
-        }
-
-        $instanceOptions = $this->options->get_newertagcloud_instanceoptions($instanceID);
-        $content = [];
-        $size = $instanceOptions['big_size'];
-
-        if (is_array($instanceOptions['cat_filter'])) {
-            $sqlCatFilter = "`$wpdb->term_relationships`.`object_id` IN (SELECT `object_id` FROM `$wpdb->term_relationships` LEFT JOIN `$wpdb->term_taxonomy` ON `$wpdb->term_relationships`.`term_taxonomy_id` = `$wpdb->term_taxonomy`.`term_taxonomy_id` WHERE `term_id` IN (" . implode(",", $instanceOptions['cat_filter']) . ")) AND";
-        } else {
-            $sqlCatFilter = "";
-        }
-
-        if (is_array($instanceOptions['tag_filter'])) {
-            foreach ($instanceOptions['tag_filter'] as $key => $value) {
-                $instanceOptions['tag_filter'][$key] = "'" . $wpdb->escape($value) . "'";
-            }
-            $skipTags = implode(",", $instanceOptions['tag_filter']);
-            $sqlTagFilter = "AND LOWER(`$wpdb->terms`.`name`) NOT IN ($skipTags)";
-        } else {
-            $sqlTagFilter = "";
-        }
-
-        $query = "SELECT `$wpdb->terms`.`term_id`, `$wpdb->terms`.`name`, LOWER(`$wpdb->terms`.`name`) AS lowername, `$wpdb->term_taxonomy`.`count` FROM `$wpdb->terms` LEFT JOIN `$wpdb->term_taxonomy` ON `$wpdb->terms`.`term_id` = `$wpdb->term_taxonomy`.`term_id` LEFT JOIN `$wpdb->term_relationships` ON `$wpdb->term_taxonomy`.`term_taxonomy_id` = `$wpdb->term_relationships`.`term_taxonomy_id` LEFT JOIN `$wpdb->posts` ON `$wpdb->term_relationships`.`object_id` = `$wpdb->posts`.`ID` WHERE " . $sqlCatFilter . " `$wpdb->term_taxonomy`.`taxonomy` = 'post_tag' AND `$wpdb->term_taxonomy`.`count` > 0 " . $sqlTagFilter . " GROUP BY `$wpdb->terms`.`name` ORDER BY `$wpdb->term_taxonomy`.`count` DESC LIMIT 0, " . $instanceOptions['max_count'];
-		$terms = $wpdb->get_results($query);
-        if(empty($terms) === true) {
-            return;
-        }
-
-        $prevCount = $terms[0]->count;
-        foreach ($terms as $term) {
-            if ($prevCount > intval($term->count) && $size > $instanceOptions['small_size']) {
-                $size = $size - $instanceOptions['step'];
-                $prevCount = intval($term->count);
-            }
-            $content[$term->lowername] = str_replace('%FONTSIZE%', $size, $instanceOptions['entry_layout']);
-            $content[$term->lowername] = str_replace('%SIZETYPE%', $instanceOptions['size_unit'], $content[$term->lowername]);
-            $content[$term->lowername] = str_replace('%TAGURL%', get_tag_link($term->term_id), $content[$term->lowername]);
-            $content[$term->lowername] = str_replace('%TAGNAME%', $term->name, $content[$term->lowername]);
-        }
-        if ($instanceOptions['order'] == 'name') {
-            ksort($content);
-        }
-        $content = implode($instanceOptions['glue'], $content);
-
-        if ($widget) {
-            $result = '<h' . ($globalOptions['heading_size'] + 1) . '>' . $instanceOptions['title'] . '</h' . ($globalOptions['heading_size'] + 1) . '>' . $instanceOptions['html_before'] . $content . $instanceOptions['html_after'];
-        } else {
-            $result = $instanceOptions['html_before'] . $content . $instanceOptions['html_after'];
-        }
-
-        $this->options->newertagcloud_cache_create($instanceID, $result);
-
-        return $result;
-    }
-
-    public function newertagcloud_control()
-    {
-        $globalOptions = $this->options->get_newertagcloud_options();
-        $instanceOptions = $this->options->get_newertagcloud_instanceoptions($globalOptions['widget_instance']);
-        if (isset($_POST[$this->plugin_name.'-title'])) {
-            $instanceOptions['title'] = strip_tags(stripslashes($_POST[$this->plugin_name.'-title']));
-            update_option($this->plugin_name.'_instance' . $globalOptions['widget_instance'], $instanceOptions);
-        }
-        echo '<p style="text-align:right;"><label for="'.$this->plugin_name.'-title">Title: <input style="width: 250px;" id="'.$this->plugin_name.'-title" name="'.$this->plugin_name.'-title" type="text" value="'.$instanceOptions['title'].'" /></label></p>';
-    }
-
     public function print_newertagcloud($args)
     {
         extract($args);
         $globalOptions = $this->options->get_newertagcloud_options();
-        $cloud = $this->generate_newertagcloud(true, $globalOptions['widget_instance']);;
+        $cloud = $this->options->generate_newertagcloud(false, $globalOptions['widget_instance']);;
 
         require __DIR__ . '/partials/newer-tag-cloud-public-display.php';
     }
 
-    public function newertagcloud_init()
+		public function print_newertagcloud_widget($args)
     {
-        if (!function_exists('wp_register_sidebar_widget') || !function_exists('wp_register_widget_control')) {
-            return;
-        }
+        extract($args);
+        $globalOptions = $this->options->get_newertagcloud_options();
+        $cloud = $this->options->generate_newertagcloud(true, $globalOptions['widget_instance']);
 
-        wp_register_sidebar_widget('new_tag_cloud-lw', 'Newer Tag Cloud', [$this, 'print_newertagcloud']);
-        wp_register_widget_control('new_tag_cloud-lw', 'Newer Tag Cloud', [$this, 'newertagcloud_control'], 50, 10);
+        require __DIR__ . '/partials/newer-tag-cloud-public-display.php';
     }
 
 }

@@ -183,12 +183,7 @@ class Newer_Tag_Cloud_Init {
         $globalOptions = $this->get_newertagcloud_options();
 
         if ($globalOptions['enablecache'] && !empty($globalOptions['cache'][$instanceID])) {
-            if ($display) {
-                echo $globalOptions['cache'][$instanceID];
-            } else {
-                return $globalOptions['cache'][$instanceID];
-            }
-            return;
+            return $globalOptions['cache'][$instanceID];
         }
 
         $instanceOptions = $this->get_newertagcloud_instanceoptions($instanceID);
@@ -210,7 +205,7 @@ class Newer_Tag_Cloud_Init {
         } else {
             $sqlTagFilter = "";
         }
-        $query = "SELECT `$wpdb->terms`.`term_id`, `$wpdb->terms`.`name`, LOWER(`$wpdb->terms`.`name`) AS lowername, `$wpdb->term_taxonomy`.`count` FROM `$wpdb->terms` LEFT JOIN `$wpdb->term_taxonomy` ON `$wpdb->terms`.`term_id` = `$wpdb->term_taxonomy`.`term_id` LEFT JOIN `$wpdb->term_relationships` ON `$wpdb->term_taxonomy`.`term_taxonomy_id` = `$wpdb->term_relationships`.`term_taxonomy_id` LEFT JOIN `$wpdb->posts` ON `$wpdb->term_relationships`.`object_id` = `$wpdb->posts`.`ID` WHERE " . $sqlCatFilter . " `$wpdb->term_taxonomy`.`taxonomy` = 'post_tag' AND `$wpdb->term_taxonomy`.`count` > 0 " . $sqlTagFilter . " GROUP BY `$wpdb->terms`.`name` ORDER BY `$wpdb->term_taxonomy`.`count` DESC LIMIT 0, " . $instanceOptions['maxcount'];
+        $query = "SELECT `$wpdb->terms`.`term_id`, `$wpdb->terms`.`name`, LOWER(`$wpdb->terms`.`name`) AS lowername, `$wpdb->term_taxonomy`.`count` FROM `$wpdb->terms` LEFT JOIN `$wpdb->term_taxonomy` ON `$wpdb->terms`.`term_id` = `$wpdb->term_taxonomy`.`term_id` LEFT JOIN `$wpdb->term_relationships` ON `$wpdb->term_taxonomy`.`term_taxonomy_id` = `$wpdb->term_relationships`.`term_taxonomy_id` LEFT JOIN `$wpdb->posts` ON `$wpdb->term_relationships`.`object_id` = `$wpdb->posts`.`ID` WHERE " . $sqlCatFilter . " `$wpdb->term_taxonomy`.`taxonomy` = 'post_tag' AND `$wpdb->term_taxonomy`.`count` > 0 " . $sqlTagFilter . " GROUP BY `$wpdb->terms`.`name` ORDER BY `$wpdb->term_taxonomy`.`count` DESC LIMIT 0, " . $instanceOptions['max_count'];
         $terms = $wpdb->get_results($query);
 
         $prevCount = $terms[0]->count;
@@ -236,22 +231,18 @@ class Newer_Tag_Cloud_Init {
             $result = $instanceOptions['html_before'] . $content . $instanceOptions['html_after'];
         }
 
-        $this->newertagcloud_cache_create($instanceID, $result);
-
-        if ($display) {
-            echo $result;
-        } else {
-            return $result;
+        if ($globalOptions['enablecache']) {
+          $this->newertagcloud_cache_create($instanceID, $result);
         }
+
+        return $result;
     }
 
     public function newertagcloud_cache_create($instanceID, $data)
     {
         $options = $this->get_newertagcloud_options();
-        if ($options['enable_cache']) {
-            $options['cache'][$instanceID] = $data;
-            update_option($this->pluginName, $options);
-        }
+        $options['cache'][$instanceID] = $data;
+        update_option($this->pluginName, $options);
     }
 
     public function newertagcloud_cache_clear()

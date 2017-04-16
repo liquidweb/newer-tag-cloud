@@ -135,7 +135,6 @@ class Newer_Tag_Cloud {
 
         $this->loader = new Newer_Tag_Cloud_Loader();
 		$this->options = new Newer_Tag_Cloud_Init($this->plugin_name);
-
 	}
 
 	/**
@@ -170,7 +169,7 @@ class Newer_Tag_Cloud {
         $this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
         $this->loader->add_action( 'admin_menu', $plugin_admin, 'register_admin_pages' ); // Add Admin page
 		$this->loader->add_action( 'save_post', $plugin_admin, 'newertagcloud_cache_clear' ); // Add Admin page
-
+		$this->loader->add_action( 'widgets_init', $plugin_admin, 'newertagcloud_widget_init' );
 	}
 
 	/**
@@ -184,10 +183,8 @@ class Newer_Tag_Cloud {
 
 		$plugin_public = new Newer_Tag_Cloud_Public( $this->get_plugin_name(), $this->get_version(), $this->options );
 
-        $this->loader->add_action( 'widgets_init', $plugin_public, 'newertagcloud_init' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
-
 	}
 
 	/**
@@ -199,25 +196,23 @@ class Newer_Tag_Cloud {
 		$this->loader->run();
 	}
 
+  public function getOptions()
+  {
+      return $this->options;
+  }
 
-    public function getOptions()
-    {
-        return $this->options;
-    }
+  public function getTagCloud($widget = true, $instanceID = 0)
+  {
+      return $this->options->generate_newertagcloud($widget, $instanceID);
+  }
 
-    public function getTagCloud($widget = true, $instanceID = 0)
-    {
-        $plugin_public = new Newer_Tag_Cloud_Public( $this->get_plugin_name(), $this->get_version(), $this->options );
-        return $plugin_public->generate_newertagcloud($widget, $instanceID);
-    }
-
-	/**
-	 * The name of the plugin used to uniquely identify it within the context of
-	 * WordPress and to define internationalization functionality.
-	 *
-	 * @since     1.0.0
-	 * @return    string    The name of the plugin.
-	 */
+/**
+ * The name of the plugin used to uniquely identify it within the context of
+ * WordPress and to define internationalization functionality.
+ *
+ * @since     1.0.0
+ * @return    string    The name of the plugin.
+ */
 	public function get_plugin_name() {
 		return $this->plugin_name;
 	}
