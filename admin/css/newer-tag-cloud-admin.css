@@ -26,3 +26,7 @@
         width: 100%;
     }
 }
+
+h2 form, h2 form form {
+  display: inline-block;
+}

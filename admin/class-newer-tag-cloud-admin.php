@@ -69,7 +69,7 @@ class Newer_Tag_Cloud_Admin {
 	 */
 	public function register_admin_pages() {
         add_menu_page('Newer Tag Cloud', 'Newer Tag Cloud', 'manage_options', $this->plugin_name, [$this, 'options_page']);
-        add_submenu_page( $this->plugin_name, 'Newer Tag Cloud Instances', 'Instances', 'manage_options', $this->plugin_name."/instances", [$this, 'instance_options_page'] );
+        add_submenu_page( $this->plugin_name, 'Newer Tag Cloud Instances', 'Instance Options', 'manage_options', $this->plugin_name."/instances", [$this, 'instance_options_page'] );
 	}
 
     /**

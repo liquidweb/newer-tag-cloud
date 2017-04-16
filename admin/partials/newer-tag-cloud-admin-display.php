@@ -47,11 +47,11 @@
             </tbody>
         </table>
         <p class="submit">
-            <input type="submit" name="<?php echo $pluginName ?>-saveglobal" value="Save global settings"/>
+            <input type="submit" name="<?php echo $pluginName ?>-saveglobal" value="Save Settings"/>
             <?php
             if ($globalOptions['enable_cache'] === true) :
             ?>
-            <input type="submit" name="<?php echo $pluginName ?>-clearcache" value="Clear cache"/>
+            <input type="submit" name="<?php echo $pluginName ?>-clearcache" value="Clear Cloud Cache"/>
             <?php endif; ?>
         </p>
     </form>
@@ -61,16 +61,12 @@
 
     <h3>About the Plugin</h3>
     <p>
-        Newer Tag Cloud, inspired by New Tag Cloud, is a WordPress plugin that generates a tag clouds.<br /><br />
-        The original New Tag Cloud plugin has been without updates for 7 years and this has recently caused issues with
-        modern WordPress versions. As a result a privately maintained version was created within
-        <a href="https://www.liquidweb.com/" target="_blank">Liquid Web</a>.<br /><br />
-        As this new plugin may benefit others who were still using the now unmaintained 'New Tag Cloud' it's now been
-        released. The plguin is provided as is and there is no support provided or guaranteed.
+      Newer Tag Cloud is a WordPress plugin that generates a tag clouds. This plugin was inspired by the original New Tag Cloud.<br /><br />
+      The original New Tag Cloud has been without updates for 7 years and this has recently caused issues with modern WordPress versions. Due to the issues for a short time a privately maintained version was created at <a href="https://www.liquidweb.com/" target="_blank">Liquid Web</a>. Now this version is being released to the public!
     </p>
     <h3>Disclaimer</h3>
 <p>
-  This plugin is provided “as is.” It is free software licensed under the terms of the <a href="http://www.gnu.org/licenses/gpl.html" title=“GNU General Public License 3.0”>GNU General Public License 3.0 (GPL)</a>. It is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. The plugin creator and/or maintainer are not liable for any damages or losses. Your only recourse is to stop using this plugin.
+  This plugin is provided “as is.” It is free software licensed under the terms of the <a href="http://www.gnu.org/licenses/gpl.html" title=“GNU General Public License 3.0”>GNU General Public License 3.0 (GPL)</a>. It is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. The plugin creator and/or maintainer(s) are not liable for any damages or losses. Your only recourse is to stop using this plugin.
 </p>
     <h3>Credits:</h3>
     <ul>
