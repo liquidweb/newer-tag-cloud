@@ -34,18 +34,21 @@
     <form action="" method="post" name="<?php echo $pluginName ?>-instance">
         <table class="form-table">
             <tbody>
+                <h2>Widget Option</h2>
+                <tr valign="top">
+                    <th scope="row">Instance Widget Title:</th>
+                    <td><input type="text" id="<?php echo $pluginName ?>-instance-title" name="<?php echo $pluginName ?>-instance-title" value="<?php echo($instanceOptions['title']); ?>" /></td>
+                </tr>
+                <h2>General Option</h2>
                 <tr valign="top">
                     <th scope="row">Tag Cloud Instance Name:</th>
                     <td><input type="text" id="<?php echo $pluginName ?>-instancename" name="<?php echo $pluginName ?>-instancename" value="<?php echo($instanceName); ?>" size="<?php echo(strlen($instanceName)+5); ?>" /></td>
                 </tr>
                 <tr valign="top">
-                    <th scope="row">Instance Widget Title:</th>
-                    <td><input type="text" id="<?php echo $pluginName ?>-instance-title" name="<?php echo $pluginName ?>-instance-title" value="<?php echo($instanceOptions['title']); ?>" /></td>
-                </tr>
-                <tr valign="top">
                     <th scope="row">Max Tag Count:</th>
                     <td><input type="text" name="<?php echo $pluginName ?>-max_count" value="<?php echo($instanceOptions['max_count']); ?>" size="<?php echo(strlen($instanceOptions['max_count'])+5); ?>" /></td>
                 </tr>
+                <h2>Style and Markup Option</h2>
                 <tr valign="top">
                     <th scope="row">Largest Tag Font Size:</th>
                     <td><input type="text" name="<?php echo $pluginName ?>-big_size" value="<?php echo($instanceOptions['big_size']); ?>" size="<?php echo(strlen($instanceOptions['big_size'])+5); ?>" /></td>
