@@ -31,7 +31,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 // Include the autoloader so we can dynamically include the rest of the classes.
-require_once( trailingslashit( dirname( __FILE__ ) ) . 'lib/autoloader.php' );
+require_once( trailingslashit( dirname( __FILE__ ) ) . 'includes/autoloader.php' );
 
 /**
  * The code that runs during plugin activation.
@@ -71,7 +71,7 @@ add_action( 'plugins_loaded', __NAMESPACE__ . '\\run_newer_tag_cloud' );/**
  */
 function run_newer_tag_cloud() {
 
-	$plugin = new Newer_Tag_Cloud();
+	$plugin = new Lib\Newer_Tag_Cloud();
     $plugin->run();
 
     if (function_exists('add_shortcode')) {

@@ -9,7 +9,9 @@
  * @package    Newer_Tag_Cloud
  * @subpackage Newer_Tag_Cloud/public
  */
-namespace LiquidWeb_Newer_Tag_Cloud\Public;
+namespace LiquidWeb_Newer_Tag_Cloud\Front;
+
+use LiquidWeb_Newer_Tag_Cloud\Admin\Newer_Tag_Cloud_Admin as Newer_Tag_Cloud_Admin;
 
 /**
  * The public-facing functionality of the plugin.
@@ -21,7 +23,7 @@ namespace LiquidWeb_Newer_Tag_Cloud\Public;
  * @subpackage Newer_Tag_Cloud/public
  * @author     Dan Pock (Liquid Web) <dpock@liquidweb.com>
  */
-class Newer_Tag_Cloud_Public {
+class Newer_Tag_Cloud_Front {
 
 	/**
 	 * The ID of this plugin.
