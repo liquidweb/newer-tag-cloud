@@ -59,11 +59,10 @@ class Newer_Tag_Cloud_Front {
 	 * @param      string    $plugin_name       The name of the plugin.
 	 * @param      string    $version    The version of this plugin.
 	 */
-	public function __construct( $plugin_name, $version, $options ) {
-
-		$this->plugin_name = $plugin_name;
-		$this->version = $version;
-        $this->options = $options;
+	public function __construct( $plugin_name, $version, $options) {
+        $this->plugin_name = $plugin_name;
+        $this->version = $version;
+		$this->options = $options;
 	}
 
 	/**

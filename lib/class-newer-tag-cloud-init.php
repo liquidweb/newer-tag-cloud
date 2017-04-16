@@ -30,7 +30,23 @@ namespace LiquidWeb_Newer_Tag_Cloud\Lib;
  */
 class Newer_Tag_Cloud_Init {
 
-    protected $pluginName;
+    /**
+     * The unique identifier of this plugin.
+     *
+     * @since    1.0.0
+     * @access   protected
+     * @var      string    $plugin_name    The string used to uniquely identify this plugin.
+     */
+    protected $plugin_name;
+
+    /**
+     * The current version of the plugin.
+     *
+     * @since    1.0.0
+     * @access   protected
+     * @var      string    $version    The current version of the plugin.
+     */
+    protected $version;
 
     public $defaultOptions;
 
@@ -38,21 +54,43 @@ class Newer_Tag_Cloud_Init {
 
     public $orderOptions;
 
-	/**
-	 * Define the core functionality of the plugin.
-	 *
-	 * Set the plugin name and the plugin version that can be used throughout the plugin.
-	 * Load the dependencies, define the locale, and set the hooks for the admin area and
-	 * the public-facing side of the site.
-	 *
-	 * @since    1.0.0
-	 */
-	public function __construct(string $name) {
-        $this->pluginName = $name;
+    /**
+    * Define the core functionality of the plugin.
+    *
+    * Set the plugin name and the plugin version that can be used throughout the plugin.
+    * Load the dependencies, define the locale, and set the hooks for the admin area and
+    * the public-facing side of the site.
+    *
+    * @since    1.0.0
+    */
+    public function __construct(string $name, string $version) {
+        $this->plugin_name = $name;
+        $this->version = $version;
         $this->defaultOptions = $this->get_default_options();
         $this->instanceDefaults = $this->get_instance_defaults();
         $this->orderOptions = $this->get_order_options();
-	}
+    }
+
+    /**
+  	 * The name of the plugin used to uniquely identify it within the context of
+  	 * WordPress and to define internationalization functionality.
+  	 *
+  	 * @since     1.0.0
+  	 * @return    string    The name of the plugin.
+  	 */
+  	public function get_plugin_name() {
+  		return $this->plugin_name;
+  	}
+
+    /**
+     * Retrieve the version number of the plugin.
+     *
+     * @since     1.0.0
+     * @return    string    The version number of the plugin.
+     */
+    public function get_version() {
+      return $this->version;
+    }
 
     private function get_default_options()
     {
@@ -75,7 +113,7 @@ class Newer_Tag_Cloud_Init {
             'small_size'         => 10,
             'step'              => 2,
             'size_unit'          => 'px',
-            'html_before'       => '<ul id="'.$this->pluginName.'">',
+            'html_before'       => '<ul id="'.$this->plugin_name.'">',
             'html_after'        => '</ul>',
             'entry_layout'      => '<li><a style="font-size:%FONTSIZE%%SIZETYPE%" href="%TAGURL%" target="_self">%TAGNAME%</a></li>',
             'glue'              => ' ',
@@ -96,7 +134,7 @@ class Newer_Tag_Cloud_Init {
     public function get_newertagcloud_options()
     {
         $defaultOptions = $this->defaultOptions;
-        $options = get_option($this->pluginName);
+        $options = get_option($this->plugin_name);
         if ($options !== false && is_array($options) === true) {
             // Compare options found to defaults
             $options['db_layout'] = ($options['db_layout'] === null) ? $defaultOptions['db_layout'] : $options['db_layout'];
@@ -114,7 +152,7 @@ class Newer_Tag_Cloud_Init {
     public function get_newertagcloud_instanceoptions($instanceID = 0)
     {
         $instanceDefaults = $this->instanceDefaults;
-        $options = get_option($this->pluginName.'_instance' . $instanceID);
+        $options = get_option($this->plugin_name.'_instance' . $instanceID);
         if ($options !== false && is_array($options) === true) {
             $options['title'] = ($options['title'] === null) ? $instanceDefaults['title'] : $options['title'];
             $options['max_count'] = ($options['max_count'] === null) ? $instanceDefaults['max_count'] : $options['max_count'];
@@ -167,12 +205,12 @@ class Newer_Tag_Cloud_Init {
         foreach ($terms as $term) {
             if (is_array($catfilter)) {
                 if (in_array($term->term_id, $catfilter)) {
-                    echo '<input type="checkbox" name="'.$this->pluginName.'-cat_filter[' . $term->term_id . ']" value="dofilter" checked="checked" /> ' . $term->name . '<br/>';
+                    echo '<input type="checkbox" name="'.$this->plugin_name.'-cat_filter[' . $term->term_id . ']" value="dofilter" checked="checked" /> ' . $term->name . '<br/>';
                 } else {
-                    echo '<input type="checkbox" name="'.$this->pluginName.'-cat_filter[' . $term->term_id . ']" value="dofilter" /> ' . $term->name . '<br/>';
+                    echo '<input type="checkbox" name="'.$this->plugin_name.'-cat_filter[' . $term->term_id . ']" value="dofilter" /> ' . $term->name . '<br/>';
                 }
             } else {
-                echo '<input type="checkbox" name="'.$this->pluginName.'-cat_filter[' . $term->term_id . ']" value="dofilter" /> ' . $term->name . '<br/>';
+                echo '<input type="checkbox" name="'.$this->plugin_name.'-cat_filter[' . $term->term_id . ']" value="dofilter" /> ' . $term->name . '<br/>';
             }
         }
     }
@@ -243,14 +281,14 @@ class Newer_Tag_Cloud_Init {
     {
         $options = $this->get_newertagcloud_options();
         $options['cache'][$instanceID] = $data;
-        update_option($this->pluginName, $options);
+        update_option($this->plugin_name, $options);
     }
 
     public function newertagcloud_cache_clear()
     {
         $options = $this->get_newertagcloud_options();
         unset($options['cache']);
-        update_option($this->pluginName, $options);
+        update_option($this->plugin_name, $options);
     }
 
 }

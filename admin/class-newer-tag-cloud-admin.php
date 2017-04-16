@@ -57,12 +57,13 @@ class Newer_Tag_Cloud_Admin {
 	 * @since    1.0.0
 	 * @param      string    $plugin_name       The name of this plugin.
 	 * @param      string    $version    The version of this plugin.
+	 * @param      string    $options       The options class for the plugin.
 	 */
-	public function __construct( $plugin_name, $version, $options ) {
-
-		$this->plugin_name = $plugin_name;
-		$this->version = $version;
-        $this->options = $options;
+	 public function __construct( $plugin_name, $version, $options) {
+         $this->plugin_name = $plugin_name;
+         $this->version = $version;
+ 		$this->options = $options;
+ 		$this->options = $options;
 	}
 
     /**
