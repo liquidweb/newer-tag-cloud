@@ -28,6 +28,16 @@ namespace LiquidWeb_Newer_Tag_Cloud\Lib;
 class Newer_Tag_Cloud_i18n
 {
 
+    /**
+     * Initialize the class and set its properties.
+     *
+     * @since    1.0.0
+     * @param      object    $options       The options class for the plugin.
+     */
+    public function __construct($options)
+    {
+        $this->options = $options;
+    }
 
     /**
      * Load the plugin text domain for translation.
@@ -38,7 +48,7 @@ class Newer_Tag_Cloud_i18n
     {
 
         load_plugin_textdomain(
-            'newer-tag-cloud',
+            $this->options->get_plugin_name(),
             false,
             dirname(dirname(plugin_basename(__FILE__))) . '/languages/'
         );

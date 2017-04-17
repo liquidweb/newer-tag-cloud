@@ -126,7 +126,7 @@ class Newer_Tag_Cloud
     private function set_locale()
     {
 
-        $plugin_i18n = new Newer_Tag_Cloud_i18n();
+        $plugin_i18n = new Newer_Tag_Cloud_i18n($this->options);
 
         $this->loader->add_action('plugins_loaded', $plugin_i18n, 'load_plugin_textdomain');
     }
