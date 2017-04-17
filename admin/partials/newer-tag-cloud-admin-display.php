@@ -17,7 +17,7 @@
 <section class="wrap">
     <h1>Newer Tag Cloud by <a href="https://www.liquidweb.com/" target="_blank">Liquid Web</a></h1>
 <div class="left-admin">
-  <h2>Global Settings</h2>
+    <h2><?php _e('Global Settings', $this->options->get_plugin_name())?></h2>
     <form action="" method="post" name="<?php echo $pluginName ?>-globalsettings">
         <table class="form-table">
             <tbody>

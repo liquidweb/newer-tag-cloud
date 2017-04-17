@@ -15,7 +15,7 @@
  * @wordpress-plugin
  * Plugin Name: Newer Tag Cloud
  * Plugin URI: https://wordpress.org/plugins/newer-tag-cloud/
- * Description: The plugin provides an widget wich shows a tag cloud with the tags used by the new WordPress own tagging feature
+ * Description: The plugin provides an widget which shows a tag cloud with the tags used by the new WordPress own tagging feature
  * Author: Daniel Pock (Liquid Web)
  * Version: 1.0.0-alpha
  * Author URI: https://github.com/liquidweb/

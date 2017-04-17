@@ -91,7 +91,7 @@ class Newer_Tag_Cloud_Admin
 
         // Check if user is Admin
         if (!current_user_can('manage_options')) {
-            wp_die(__('You do not have sufficient permissions to access this page.'));
+            wp_die(__('You do not have sufficient permissions to access this page.', $this->options->get_plugin_name()));
         }
 
         if (isset($_POST[$pluginName.'-saveglobal'])) {
@@ -120,7 +120,7 @@ class Newer_Tag_Cloud_Admin
         $pluginName = $this->plugin_name;
         // Check if user is Admin
         if (!current_user_can('manage_options')) {
-            wp_die(__('You do not have sufficient permissqions to access this page.'));
+            wp_die(__('You do not have sufficient permissions to access this page.', $this->options->get_plugin_name()));
         }
 
         $orderOptions = $options->orderOptions;
@@ -138,7 +138,7 @@ class Newer_Tag_Cloud_Admin
         if (isset($_POST[$pluginName.'-resetinstance'])) {
             delete_option($pluginName.'_instance' . intval($_POST[$pluginName.'-instance']));
             echo '<div id="message" class="updated fade"><p><strong>';
-            _e('Instance reseted.');
+            _e('Instance Options Reset.', $this->options->get_plugin_name());
             echo '</strong></p></div>';
         }
 
@@ -213,6 +213,7 @@ class Newer_Tag_Cloud_Admin
         $options = $this->options->get_newertagcloud_options();
         unset($options['cache']);
         update_option($this->plugin_name, $options);
+        _e('Cache cleared.', $this->options->get_plugin_name());
     }
 
     public function update_newertagcloud_options()
@@ -234,7 +235,7 @@ class Newer_Tag_Cloud_Admin
 
         update_option($this->plugin_name, $options);
         echo '<div id="message" class="updated fade"><p><strong>';
-        _e('Options saved.');
+        _e('Options saved.', $this->options->get_plugin_name());
         echo '</strong></p></div>';
     }
 
@@ -279,7 +280,7 @@ class Newer_Tag_Cloud_Admin
         unset($options['cache'][$instanceID]);
         update_option($this->plugin_name, $options);
         echo '<div id="message" class="updated fade"><p><strong>';
-        _e('Options saved.');
+        _e('Options saved.', $this->options->get_plugin_name());
         echo '</strong></p></div>';
     }
 
@@ -287,7 +288,7 @@ class Newer_Tag_Cloud_Admin
     {
         if ($instanceID == 0) {
             echo '<div id="message" class="updated fade"><p><strong>';
-            _e('Instance 0 can\'t be deleted!');
+            _e("Instance 0 can't be deleted!", $this->options->get_plugin_name());
             echo '</strong></p></div>';
             return;
         }
@@ -298,7 +299,7 @@ class Newer_Tag_Cloud_Admin
         $options['instances'] = serialize($instances);
         update_option($this->plugin_name, $options);
         echo '<div id="message" class="updated fade"><p><strong>';
-        _e('Instance deleted.');
+        _e('Instance deleted.', $this->options->get_plugin_name());
         echo '</strong></p></div>';
     }
 

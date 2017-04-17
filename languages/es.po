@@ -4,22 +4,25 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Newer Tag Cloud 1.0.0-alpha\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/git\n"
-"POT-Creation-Date: 2017-04-17 03:41:25+00:00\n"
+"POT-Creation-Date: 2017-04-16 23:41-0400\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2017-04-16 23:45-0400\n"
+"Language-Team: \n"
+"X-Generator: Poedit 2.0.1\n"
+"Last-Translator: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: es\n"
 
 #: admin/class-newer-tag-cloud-admin.php:94
 #: admin/class-newer-tag-cloud-admin.php:123
 msgid "You do not have sufficient permissions to access this page."
-msgstr ""
+msgstr "No tiene suficientes permisos para acceder a esta página."
 
 #: admin/class-newer-tag-cloud-admin.php:141
 msgid "Instance Options Reset."
-msgstr ""
+msgstr "Opciones de instancia Reset."
 
 #: admin/class-newer-tag-cloud-admin.php:216
 msgid "Cache cleared."
@@ -28,19 +31,19 @@ msgstr ""
 #: admin/class-newer-tag-cloud-admin.php:238
 #: admin/class-newer-tag-cloud-admin.php:283
 msgid "Options saved."
-msgstr ""
+msgstr "Opciones de guardado."
 
 #: admin/class-newer-tag-cloud-admin.php:291
 msgid "Instance 0 can't be deleted!"
-msgstr ""
+msgstr "¡La instancia 0 no se puede borrar!"
 
 #: admin/class-newer-tag-cloud-admin.php:302
 msgid "Instance deleted."
-msgstr ""
+msgstr "Instancia suprimida."
 
 #: admin/partials/newer-tag-cloud-admin-display.php:20
 msgid "Global Settings"
-msgstr ""
+msgstr "Ajustes globales"
 
 #. Plugin Name of the plugin/theme
 msgid "Newer Tag Cloud"
