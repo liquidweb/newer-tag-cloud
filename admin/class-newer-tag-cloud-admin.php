@@ -22,73 +22,77 @@ use \LiquidWeb_Newer_Tag_Cloud\Front\Newer_Tag_Cloud_Front as Newer_Tag_Cloud_Fr
  * @subpackage Newer_Tag_Cloud/admin
  * @author     Dan Pock (Liquid Web) <dpock@liquidweb.com>
  */
-class Newer_Tag_Cloud_Admin {
-
-	/**
-	 * The ID of this plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      string    $plugin_name    The ID of this plugin.
-	 */
-	private $plugin_name;
-
-	/**
-	 * The version of this plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      string    $version    The current version of this plugin.
-	 */
-	private $version;
-
-	/**
-	 * The options of this plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      array    $options
-	 */
-	private $options;
-
-	/**
-	 * Initialize the class and set its properties.
-	 *
-	 * @since    1.0.0
-	 * @param      string    $plugin_name       The name of this plugin.
-	 * @param      string    $version    The version of this plugin.
-	 * @param      string    $options       The options class for the plugin.
-	 */
-	 public function __construct( $plugin_name, $version, $options) {
-         $this->plugin_name = $plugin_name;
-         $this->version = $version;
- 		$this->options = $options;
- 		$this->options = $options;
-	}
+class Newer_Tag_Cloud_Admin
+{
 
     /**
-	 * Register the options page for the admin area.
-	 *
-	 * @since    1.0.0
-	 */
-	public function register_admin_pages() {
+     * The ID of this plugin.
+     *
+     * @since    1.0.0
+     * @access   private
+     * @var      string    $plugin_name    The ID of this plugin.
+     */
+    private $plugin_name;
+
+    /**
+     * The version of this plugin.
+     *
+     * @since    1.0.0
+     * @access   private
+     * @var      string    $version    The current version of this plugin.
+     */
+    private $version;
+
+    /**
+     * The options of this plugin.
+     *
+     * @since    1.0.0
+     * @access   private
+     * @var      array    $options
+     */
+    private $options;
+
+    /**
+     * Initialize the class and set its properties.
+     *
+     * @since    1.0.0
+     * @param      string    $plugin_name       The name of this plugin.
+     * @param      string    $version    The version of this plugin.
+     * @param      string    $options       The options class for the plugin.
+     */
+    public function __construct($plugin_name, $version, $options)
+    {
+        $this->plugin_name = $plugin_name;
+        $this->version = $version;
+        $this->options = $options;
+        $this->options = $options;
+    }
+
+    /**
+     * Register the options page for the admin area.
+     *
+     * @since    1.0.0
+     */
+    public function register_admin_pages()
+    {
         add_menu_page('Newer Tag Cloud', 'Newer Tag Cloud', 'manage_options', $this->plugin_name, [$this, 'options_page']);
-        add_submenu_page( $this->plugin_name, 'Newer Tag Cloud Instances', 'Instance Options', 'manage_options', $this->plugin_name."/instances", [$this, 'instance_options_page'] );
-	}
+        add_submenu_page($this->plugin_name, 'Newer Tag Cloud Instances', 'Instance Options', 'manage_options', $this->plugin_name."/instances", [$this, 'instance_options_page']);
+    }
 
     /**
-	 * Create the options page for the admin area.
-	 *
-	 * @since    1.0.0
-	 */
-	public function options_page() {
+     * Create the options page for the admin area.
+     *
+     * @since    1.0.0
+     */
+    public function options_page()
+    {
         $options = $this->options;
         $pluginName = $this->plugin_name;
 
         // Check if user is Admin
-        if ( !current_user_can( 'manage_options' ) )  {
-    		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
-    	}
+        if (!current_user_can('manage_options')) {
+            wp_die(__('You do not have sufficient permissions to access this page.'));
+        }
 
         if (isset($_POST[$pluginName.'-saveglobal'])) {
             $this->update_newertagcloud_options();
@@ -102,21 +106,22 @@ class Newer_Tag_Cloud_Admin {
         $globalOptions = $options->get_newertagcloud_options();
 
         require __DIR__ . '/partials/newer-tag-cloud-admin-display.php';
-	}
+    }
 
     /**
-	 * Create the options page for the admin area.
-	 *
-	 * @since    1.0.0
-	 */
-	public function instance_options_page() {
+     * Create the options page for the admin area.
+     *
+     * @since    1.0.0
+     */
+    public function instance_options_page()
+    {
         // Init basic variables used in partial
         $options = $this->options;
         $pluginName = $this->plugin_name;
         // Check if user is Admin
-        if ( !current_user_can( 'manage_options' ) )  {
-    		wp_die( __( 'You do not have sufficient permissqions to access this page.' ) );
-    	}
+        if (!current_user_can('manage_options')) {
+            wp_die(__('You do not have sufficient permissqions to access this page.'));
+        }
 
         $orderOptions = $options->orderOptions;
 
@@ -155,53 +160,53 @@ class Newer_Tag_Cloud_Admin {
         }
 
         require __DIR__ . '/partials/newer-tag-cloud-instances-display.php';
-	}
+    }
 
-	/**
-	 * Register the stylesheets for the admin area.
-	 *
-	 * @since    1.0.0
-	 */
-	public function enqueue_styles() {
+    /**
+     * Register the stylesheets for the admin area.
+     *
+     * @since    1.0.0
+     */
+    public function enqueue_styles()
+    {
 
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Newer_Tag_Cloud_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Newer_Tag_Cloud_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
+        /**
+         * This function is provided for demonstration purposes only.
+         *
+         * An instance of this class should be passed to the run() function
+         * defined in Newer_Tag_Cloud_Loader as all of the hooks are defined
+         * in that particular class.
+         *
+         * The Newer_Tag_Cloud_Loader will then create the relationship
+         * between the defined hooks and the functions defined in this
+         * class.
+         */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/newer-tag-cloud-admin.css', array(), $this->version, 'all' );
+        wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/newer-tag-cloud-admin.css', array(), $this->version, 'all');
+    }
 
-	}
+    /**
+     * Register the JavaScript for the admin area.
+     *
+     * @since    1.0.0
+     */
+    public function enqueue_scripts()
+    {
 
-	/**
-	 * Register the JavaScript for the admin area.
-	 *
-	 * @since    1.0.0
-	 */
-	public function enqueue_scripts() {
+        /**
+         * This function is provided for demonstration purposes only.
+         *
+         * An instance of this class should be passed to the run() function
+         * defined in Newer_Tag_Cloud_Loader as all of the hooks are defined
+         * in that particular class.
+         *
+         * The Newer_Tag_Cloud_Loader will then create the relationship
+         * between the defined hooks and the functions defined in this
+         * class.
+         */
 
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Newer_Tag_Cloud_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Newer_Tag_Cloud_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/newer-tag-cloud-admin.js', array( 'jquery' ), $this->version, false );
-
-	}
+        wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/newer-tag-cloud-admin.js', array( 'jquery' ), $this->version, false);
+    }
 
     public function newertagcloud_cache_clear()
     {
@@ -297,7 +302,7 @@ class Newer_Tag_Cloud_Admin {
         echo '</strong></p></div>';
     }
 
-		public function newertagcloud_control()
+    public function newertagcloud_control()
     {
         $globalOptions = $this->options->get_newertagcloud_options();
         $instanceOptions = $this->options->get_newertagcloud_instanceoptions($globalOptions['widget_instance']);
@@ -308,15 +313,14 @@ class Newer_Tag_Cloud_Admin {
         echo '<p style="text-align:right;"><label for="'.$this->plugin_name.'-title">Title: <input style="width: 250px;" id="'.$this->plugin_name.'-title" name="'.$this->plugin_name.'-title" type="text" value="'.$instanceOptions['title'].'" /></label></p>';
     }
 
-		public function newertagcloud_widget_init()
+    public function newertagcloud_widget_init()
     {
         if (!function_exists('wp_register_sidebar_widget') || !function_exists('wp_register_widget_control')) {
             return;
         }
 
-		$plugin_public = new Newer_Tag_Cloud_Front( $this->plugin_name, $this->version, $this->options );
-		wp_register_sidebar_widget($this->plugin_name.'-lw', 'Newer Tag Cloud', [$plugin_public, 'print_newertagcloud_widget']);
+        $plugin_public = new Newer_Tag_Cloud_Front($this->plugin_name, $this->version, $this->options);
+        wp_register_sidebar_widget($this->plugin_name.'-lw', 'Newer Tag Cloud', [$plugin_public, 'print_newertagcloud_widget']);
         wp_register_widget_control($this->plugin_name.'-lw', 'Newer Tag Cloud', [$this, 'newertagcloud_control'], 50, 10);
     }
-
 }

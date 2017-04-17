@@ -26,12 +26,12 @@
 namespace LiquidWeb_Newer_Tag_Cloud;
 
 // If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
-	die;
+if (! defined('WPINC')) {
+    die;
 }
 
 // Include the autoloader so we can dynamically include the rest of the classes.
-require_once( trailingslashit( dirname( __FILE__ ) ) . 'includes/autoloader.php' );
+require_once(trailingslashit(dirname(__FILE__)) . 'includes/autoloader.php');
 
 use LiquidWeb_Newer_Tag_Cloud\Lib\Newer_Tag_Cloud;
 use LiquidWeb_Newer_Tag_Cloud\Lib\Newer_Tag_Cloud_Activator;
@@ -41,27 +41,29 @@ use LiquidWeb_Newer_Tag_Cloud\Lib\Newer_Tag_Cloud_Deactivator;
  * The code that runs during plugin activation.
  * This action is documented in lib/class-newer-tag-cloud-activator.php
  */
-function activate_newer_tag_cloud() {
-	Newer_Tag_Cloud_Activator::activate();
+function activate_newer_tag_cloud()
+{
+    Newer_Tag_Cloud_Activator::activate();
 }
-register_activation_hook( __FILE__, __NAMESPACE__ . '\\activate_newer_tag_cloud' );
+register_activation_hook(__FILE__, __NAMESPACE__ . '\\activate_newer_tag_cloud');
 
 /**
  * The code that runs during plugin deactivation.
  * This action is documented in lib/class-newer-tag-cloud-deactivator.php
  */
-function deactivate_newer_tag_cloud() {
-	Newer_Tag_Cloud_Deactivator::deactivate();
+function deactivate_newer_tag_cloud()
+{
+    Newer_Tag_Cloud_Deactivator::deactivate();
 }
 
-register_deactivation_hook( __FILE__, __NAMESPACE__ . '\\deactivate_newer_tag_cloud' );
+register_deactivation_hook(__FILE__, __NAMESPACE__ . '\\deactivate_newer_tag_cloud');
 
 /**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
 
-add_action( 'plugins_loaded', __NAMESPACE__ . '\\run_newer_tag_cloud' );/**
+add_action('plugins_loaded', __NAMESPACE__ . '\\run_newer_tag_cloud');/**
  * Begins execution of the plugin.
  *
  * Since everything within the plugin is registered via hooks,
@@ -70,9 +72,10 @@ add_action( 'plugins_loaded', __NAMESPACE__ . '\\run_newer_tag_cloud' );/**
  *
  * @since    1.0.0
  */
-function run_newer_tag_cloud() {
+function run_newer_tag_cloud()
+{
 
-	$plugin = new Newer_Tag_Cloud();
+    $plugin = new Newer_Tag_Cloud();
     $plugin->run();
 
     if (function_exists('add_shortcode')) {
@@ -97,7 +100,7 @@ function newertagcloud_shortcode($atts)
 // function for themes and other plugins
 function newerTagCloud($id = 0): void
 {
-	$plugin = (new Newer_Tag_Cloud());
-	echo $plugin->getTagCloud(false, intval($id));
+    $plugin = (new Newer_Tag_Cloud());
+    echo $plugin->getTagCloud(false, intval($id));
     return;
 }

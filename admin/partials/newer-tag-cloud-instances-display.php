@@ -19,11 +19,11 @@
 <form action="" method="post" name="<?php echo $pluginName ?>-instanceselector">
         Instance Settings: <?php
         echo $options->create_selectfield(
-        $options->get_newertagcloud_instances(),
-        $instanceToUse,
-        $pluginName.'-instance',
-        ' id="selected-instance" onChange="submit();" data-cur="'.$instanceToUse.'"'
-    ); ?>
+             $options->get_newertagcloud_instances(),
+             $instanceToUse,
+             $pluginName.'-instance',
+             ' id="selected-instance" onChange="submit();" data-cur="'.$instanceToUse.'"'
+        ); ?>
 </form>
 <form action="" method="post" name="<?php echo $pluginName ?>-instance">
   <input type="submit" name="<?php echo $pluginName ?>-deleteinstance" value="Delete This Instance" onClick="return verifyDelete()"/>

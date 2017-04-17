@@ -21,17 +21,17 @@ namespace LiquidWeb_Newer_Tag_Cloud\Lib;
  * @subpackage Newer_Tag_Cloud/includes
  * @author     Dan Pock (Liquid Web) <dpock@liquidweb.com>
  */
-class Newer_Tag_Cloud_Deactivator {
+class Newer_Tag_Cloud_Deactivator
+{
 
-	/**
-	 * Short Description. (use period)
-	 *
-	 * Long Description.
-	 *
-	 * @since    1.0.0
-	 */
-	public static function deactivate() {
-
-	}
-
+    /**
+     * Short Description. (use period)
+     *
+     * Long Description.
+     *
+     * @since    1.0.0
+     */
+    public static function deactivate()
+    {
+    }
 }

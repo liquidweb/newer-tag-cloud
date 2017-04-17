@@ -28,7 +28,8 @@ namespace LiquidWeb_Newer_Tag_Cloud\Lib;
  * @subpackage Newer_Tag_Cloud/includes
  * @author     Dan Pock (Liquid Web) <dpock@liquidweb.com>
  */
-class Newer_Tag_Cloud_Init {
+class Newer_Tag_Cloud_Init
+{
 
     /**
      * The unique identifier of this plugin.
@@ -63,7 +64,8 @@ class Newer_Tag_Cloud_Init {
     *
     * @since    1.0.0
     */
-    public function __construct(string $name, string $version) {
+    public function __construct(string $name, string $version)
+    {
         $this->plugin_name = $name;
         $this->version = $version;
         $this->defaultOptions = $this->get_default_options();
@@ -72,15 +74,16 @@ class Newer_Tag_Cloud_Init {
     }
 
     /**
-  	 * The name of the plugin used to uniquely identify it within the context of
-  	 * WordPress and to define internationalization functionality.
-  	 *
-  	 * @since     1.0.0
-  	 * @return    string    The name of the plugin.
-  	 */
-  	public function get_plugin_name() {
-  		return $this->plugin_name;
-  	}
+     * The name of the plugin used to uniquely identify it within the context of
+     * WordPress and to define internationalization functionality.
+     *
+     * @since     1.0.0
+     * @return    string    The name of the plugin.
+     */
+    public function get_plugin_name()
+    {
+        return $this->plugin_name;
+    }
 
     /**
      * Retrieve the version number of the plugin.
@@ -88,8 +91,9 @@ class Newer_Tag_Cloud_Init {
      * @since     1.0.0
      * @return    string    The version number of the plugin.
      */
-    public function get_version() {
-      return $this->version;
+    public function get_version()
+    {
+        return $this->version;
     }
 
     private function get_default_options()
@@ -274,7 +278,7 @@ class Newer_Tag_Cloud_Init {
         }
 
         if ($globalOptions['enable_cache']) {
-          $this->newertagcloud_cache_create($instanceID, $result);
+            $this->newertagcloud_cache_create($instanceID, $result);
         }
 
         return $result;
@@ -293,5 +297,4 @@ class Newer_Tag_Cloud_Init {
         unset($options['cache']);
         update_option($this->plugin_name, $options);
     }
-
 }

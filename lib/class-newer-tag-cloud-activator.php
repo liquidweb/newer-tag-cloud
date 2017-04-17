@@ -21,17 +21,17 @@ namespace LiquidWeb_Newer_Tag_Cloud\Lib;
  * @subpackage Newer_Tag_Cloud/includes
  * @author     Dan Pock (Liquid Web) <dpock@liquidweb.com>
  */
-class Newer_Tag_Cloud_Activator {
+class Newer_Tag_Cloud_Activator
+{
 
-	/**
-	 * Short Description. (use period)
-	 *
-	 * Long Description.
-	 *
-	 * @since    1.0.0
-	 */
-	public static function activate() {
-
-	}
-
+    /**
+     * Short Description. (use period)
+     *
+     * Long Description.
+     *
+     * @since    1.0.0
+     */
+    public static function activate()
+    {
+    }
 }
