@@ -8,7 +8,6 @@
 namespace LiquidWeb_Newer_Tag_Cloud\Tests;
 
 use WP_UnitTestCase;
-use \PHPUnit\Framework\TestCase as PHPUnit_Framework_TestCase;
 use LiquidWeb_Newer_Tag_Cloud\Lib\Newer_Tag_Cloud;
 
 /**
