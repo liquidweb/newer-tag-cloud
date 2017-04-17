@@ -221,7 +221,7 @@ class Newer_Tag_Cloud_Init {
 
         $globalOptions = $this->get_newertagcloud_options();
 
-        if ($globalOptions['enablecache'] && !empty($globalOptions['cache'][$instanceID])) {
+        if ($globalOptions['enable_cache'] && !empty($globalOptions['cache'][$instanceID])) {
             return $globalOptions['cache'][$instanceID];
         }
 
@@ -270,7 +270,7 @@ class Newer_Tag_Cloud_Init {
             $result = $instanceOptions['html_before'] . $content . $instanceOptions['html_after'];
         }
 
-        if ($globalOptions['enablecache']) {
+        if ($globalOptions['enable_cache']) {
           $this->newertagcloud_cache_create($instanceID, $result);
         }
 
