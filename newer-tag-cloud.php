@@ -82,7 +82,6 @@ function run_newer_tag_cloud()
         add_shortcode($plugin->get_plugin_name(), __NAMESPACE__ . '\\newertagcloud_shortcode');
     }
 }
-run_newer_tag_cloud();
 
 // Shortcode function
 function newertagcloud_shortcode($atts)
