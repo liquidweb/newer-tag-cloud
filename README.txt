@@ -11,10 +11,19 @@ A small plugin providing a neat tag cloud feature. Inspired by New Tag Cloud.
 
 == Description ==
 
-Newer Tag Cloud, inspired by New Tag Cloud, is a WordPress plugin that generates a tag clouds.
+Newer Tag Cloud is a WordPress plugin that generates a tag clouds. This plugin
+was inspired by the original New Tag Cloud.
 
-Newer Tag Cloud uses the WordPress own tagging feature, so that you don't need any tagging plugin. You can use New Tag
-Cloud directly as a shortcode in any post/page, as a widget, or in the theme as PHP code.
+Newer Tag Cloud uses the WordPress own tagging feature, so that you don't need
+any tagging plugin. You can use New Tag Cloud directly as a shortcode in any
+post/page, as a widget, or in the theme as PHP code. Use it however you'd like,
+it's flexible!
+
+The original New Tag Cloud had been without updates for 7 years this caused
+issues with modern WordPress versions. Due to the issues, for a short time, a
+privately updated version was created at Liquid Web. Now this small fix has been
+ turned into a complete code refactor. The results are now being released to the
+ community!
 
 Configurebale options
 * widget box title
