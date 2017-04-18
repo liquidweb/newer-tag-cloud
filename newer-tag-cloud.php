@@ -13,15 +13,16 @@
  * @package           Newer_Tag_Cloud
  *
  * @wordpress-plugin
- * Plugin Name: Newer Tag Cloud
+ * Plugin Name: Newer Tag Cloud by Liquid Web
  * Plugin URI: https://wordpress.org/plugins/newer-tag-cloud/
  * Description: The plugin provides an widget which shows a tag cloud with the tags used by the new WordPress own tagging feature
  * Author: Daniel Pock (Liquid Web)
- * Version: 1.0.0-alpha
+ * Version: 1.0.0
  * Author URI: https://github.com/liquidweb/
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       newer-tag-cloud
+ * Domain Path:       /languages/
  */
 namespace LiquidWeb_Newer_Tag_Cloud;
 
