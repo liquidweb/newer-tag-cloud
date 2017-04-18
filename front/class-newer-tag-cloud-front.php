@@ -110,7 +110,7 @@ class Newer_Tag_Cloud_Front
          * class.
          */
 
-        wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/newer-tag-cloud-public.js', array( 'jquery' ), $this->version, false);
+        //wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/newer-tag-cloud-public.js', array( 'jquery' ), $this->version, false);
     }
 
     public function print_newertagcloud($args)
