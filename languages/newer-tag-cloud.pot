@@ -1,16 +1,15 @@
-# Copyright (C) 2017 Newer Tag Cloud by Liquid Web
-# This file is distributed under the same license as the Newer Tag Cloud by Liquid Web package.
+# Copyright (C) 2017 Newer Tag Cloud
+# This file is distributed under the same license as the Newer Tag Cloud package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Newer Tag Cloud by Liquid Web 1.0.0\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/git\n"
-"POT-Creation-Date: 2017-04-18 03:09:26+00:00\n"
+"Project-Id-Version: Newer Tag Cloud 1.0.0\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/newer-tag-cloud\n"
+"POT-Creation-Date: 2017-05-02 14:52:35+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Last-Translator: FULL NAME <dpock@liquidweb.com>\n"
 
 #: admin/class-newer-tag-cloud-admin.php:94
 #: admin/class-newer-tag-cloud-admin.php:123
@@ -43,7 +42,7 @@ msgid "Global Settings"
 msgstr ""
 
 #. Plugin Name of the plugin/theme
-msgid "Newer Tag Cloud by Liquid Web"
+msgid "Newer Tag Cloud"
 msgstr ""
 
 #. Description of the plugin/theme
