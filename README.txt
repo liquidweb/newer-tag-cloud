@@ -14,16 +14,9 @@ A small plugin providing a neat tag cloud feature. Inspired by New Tag Cloud.
 Newer Tag Cloud is a WordPress plugin that generates a tag clouds. This plugin
 was inspired by the original New Tag Cloud.
 
-Newer Tag Cloud uses the WordPress own tagging feature, so that you don't need
-any tagging plugin. You can use New Tag Cloud directly as a shortcode in any
-post/page, as a widget, or in the theme as PHP code. Use it however you'd like,
-it's flexible!
+Newer Tag Cloud uses the WordPress own tagging feature, so that you don't need any tagging plugin. You can use New Tag Cloud directly as a shortcode in any post/page, as a widget, or in the theme as PHP code. Use it however you'd like, it's flexible!
 
-The original New Tag Cloud had been without updates for 7 years this caused
-issues with modern WordPress versions. Due to the issues, for a short time, a
-privately updated version was created at Liquid Web. Now this small fix has been
- turned into a complete code refactor. The results are now being released to the
- community!
+The original New Tag Cloud had been without updates for 7 years this caused issues with modern WordPress versions. Due to the issues, for a short time, a privately updated version was created at Liquid Web. Now this small fix has been  turned into a complete code refactor. The results are now being released to the  community!
 
 Configurebale options
 * widget box title
@@ -59,15 +52,10 @@ new version of the plugin was created based on the [WordPress Plugin Boilerplate
 being implemented in Newer Tag Cloud.
 
 = How to use vanilla PHP to add a Tag Cloud? =
-If you want to use Newer Tag Cloud in your theme you can still use `<?php newerTagCloud() ?>`. If you want to use a
-specific widget you can provide the function an ID as parameter. For example, `<?php newerTagCloud(2) ?>` will result in
-the configuration using the instance provided.
+If you want to use Newer Tag Cloud in your theme you can still use `<?php newerTagCloud() ?>`. If you want to use a specific widget you can provide the function an ID as parameter. For example, `<?php newerTagCloud(2) ?>` will result in the configuration using the instance provided.
 
 = Using shortcodes to add a Tag Cloud? =
-Simply add `[newer-tag-cloud]` or `[newer-tag-cloud int=<ID>]` to your post or page and the tag cloud will be shown
-there. If you use `[newer-tag-cloud]` the instances set as "Default instance for shortcode" is used. With int=<ID> set
-you can specify an instance to use. For example, this is useful if you need two, or more, different tag clouds
-generated via shortcode.
+Simply add `[newer-tag-cloud]` or `[newer-tag-cloud int=<ID>]` to your post or page and the tag cloud will be shown there. If you use `[newer-tag-cloud]` the instances set as "Default instance for shortcode" is used. With int=<ID> set you can specify an instance to use. For example, this is useful if you need two, or more, different tag clouds generated via shortcode.
 
 = Can I use multiple unique clouds? =
 Yes. All "layout specific options" are stored in each instance. The instance has an ID which you can use to call it.
