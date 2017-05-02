@@ -1,4 +1,4 @@
-=== Newer Tag Cloud ===
+=== Newer Tag Cloud by Liquid Web ===
 Contributors: Liquid Web, liquidwebdan
 Tags: tag, cloud, widget
 Requires at least: 3.0.1
