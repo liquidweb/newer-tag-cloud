@@ -219,7 +219,7 @@ class Newer_Tag_Cloud_Admin
     public function update_newertagcloud_options()
     {
         $options = $this->options->get_newertagcloud_options();
-        $options['widget_instance'] = intval($_POST[$this->plugin_name.'-widget_instance']);
+        $options['default_widget_instance'] = intval($_POST[$this->plugin_name.'-widget_instance']);
         $options['heading_size'] = intval($_POST[$this->plugin_name.'-heading_size']);
         $options['shortcode_instance'] = intval($_POST[$this->plugin_name.'-shortcode_instance']);
         $options['enable_cache'] = (isset($_POST[$this->plugin_name.'-enable_cache'])) ? true : false;
@@ -258,6 +258,7 @@ class Newer_Tag_Cloud_Admin
 
         if (empty($_POST[$this->plugin_name.'-tag_filter'])) {
             unset($options['tag_filter']);
+            $options['tag_filter'] = '';
         } else {
             $options['tag_filter'] = explode(",", strtolower((stripslashes($_POST[$this->plugin_name.'-tag_filter']))));
         }
@@ -267,6 +268,8 @@ class Newer_Tag_Cloud_Admin
             foreach ($_POST[$this->plugin_name.'-cat_filter'] as $id => $value) {
                 $options['cat_filter'][] = $id;
             }
+        } else {
+            $options['cat_filter'] = [];
         }
 
         update_option($this->plugin_name.'_instance' . $instanceID, $options);
@@ -303,25 +306,12 @@ class Newer_Tag_Cloud_Admin
         echo '</strong></p></div>';
     }
 
-    public function newertagcloud_control()
-    {
-        $globalOptions = $this->options->get_newertagcloud_options();
-        $instanceOptions = $this->options->get_newertagcloud_instanceoptions($globalOptions['widget_instance']);
-        if (isset($_POST[$this->plugin_name.'-title'])) {
-            $instanceOptions['title'] = strip_tags(stripslashes($_POST[$this->plugin_name.'-title']));
-            update_option($this->plugin_name.'_instance' . $globalOptions['widget_instance'], $instanceOptions);
-        }
-        echo '<p style="text-align:right;"><label for="'.$this->plugin_name.'-title">Title: <input style="width: 250px;" id="'.$this->plugin_name.'-title" name="'.$this->plugin_name.'-title" type="text" value="'.$instanceOptions['title'].'" /></label></p>';
-    }
-
     public function newertagcloud_widget_init()
     {
-        if (!function_exists('wp_register_sidebar_widget') || !function_exists('wp_register_widget_control')) {
+        if (!function_exists('register_widget')) {
             return;
         }
 
-        $plugin_public = new Newer_Tag_Cloud_Front($this->plugin_name, $this->version, $this->options);
-        wp_register_sidebar_widget($this->plugin_name.'-lw', 'Newer Tag Cloud', [$plugin_public, 'print_newertagcloud_widget']);
-        wp_register_widget_control($this->plugin_name.'-lw', 'Newer Tag Cloud', [$this, 'newertagcloud_control'], 50, 10);
+        register_widget( 'LiquidWeb_Newer_Tag_Cloud\Lib\Newer_Tag_Cloud_Widget' );
     }
 }

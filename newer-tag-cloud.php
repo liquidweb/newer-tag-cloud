@@ -90,11 +90,11 @@ function newertagcloud_shortcode($atts)
     $plugin = (new Newer_Tag_Cloud());
     $globalOptions = $plugin->getOptions()->get_newertagcloud_options();
 
-    extract(shortcode_atts(array('int' => null), $atts));
+    extract(shortcode_atts(array('int' => null, 'widget' => false), $atts));
     if (!is_numeric($int)) {
         $int = $globalOptions['shortcode_instance'];
     }
-    return $plugin->getTagCloud(false, $int);
+    return $plugin->getTagCloud((bool) $widget, $int);
 }
 
 // function for themes and other plugins

@@ -23,7 +23,7 @@
             <tbody>
                 <tr valign="top">
                     <th scope="row">Instance for widget</th>
-                    <td><?php echo $options->create_selectfield($options->get_newertagcloud_instances(), $globalOptions['widget_instance'], $pluginName.'-widget_instance'); ?></td>
+                    <td><?php echo $options->create_selectfield($options->get_newertagcloud_instances(), $globalOptions['default_widget_instance'], $pluginName.'-widget_instance'); ?></td>
                 </tr>
                 <tr valign="top">
                     <th scope="row">Heading size for widget title</th>

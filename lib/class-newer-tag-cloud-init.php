@@ -100,7 +100,7 @@ class Newer_Tag_Cloud_Init
     {
         return [
             'db_layout'          => '0.5',
-            'widget_instance'    => 0,
+            'default_widget_instance'    => 0,
             'heading_size'       => 1,
             'shortcode_instance' => 0,
             'instances'         => serialize([0 => 'Default']),
@@ -113,8 +113,8 @@ class Newer_Tag_Cloud_Init
         return [
             'title'             => 'Newer Tag Cloud',
             'max_count'          => 10,
-            'big_size'           => 24,
-            'small_size'         => 10,
+            'big_size'           => 32,
+            'small_size'         => 8,
             'step'              => 2,
             'size_unit'          => 'px',
             'html_before'       => '<ul id="'.$this->plugin_name.'">',
@@ -122,7 +122,7 @@ class Newer_Tag_Cloud_Init
             'entry_layout'      => '<li><a style="font-size:%FONTSIZE%%SIZETYPE%" href="%TAGURL%" target="_self">%TAGNAME%</a></li>',
             'glue'              => ' ',
             'cat_filter'        => false,
-            'tag_filter'        => false,
+            'tag_filter'        => '',
             'order'             => 'name'
         ];
     }
@@ -142,7 +142,7 @@ class Newer_Tag_Cloud_Init
         if ($options !== false && is_array($options) === true) {
             // Compare options found to defaults
             $options['db_layout'] = ($options['db_layout'] === null) ? $defaultOptions['db_layout'] : $options['db_layout'];
-            $options['widget_instance'] = ($options['widget_instance'] === null) ? $defaultOptions['widget_instance'] : $options['widget_instance'];
+            $options['default_widget_instance'] = ($options['default_widget_instance'] === null) ? $defaultOptions['default_widget_instance'] : $options['default_widget_instance'];
             $options['heading_size'] = ($options['heading_size'] === null) ? $defaultOptions['heading_size'] : $options['heading_size'];
             $options['shortcode_instance'] = ($options['shortcode_instance'] === null) ? $defaultOptions['shortcode_instance'] : $options['shortcode_instance'];
             $options['instances'] = ($options['instances'] === null) ? $defaultOptions['instances'] : $options['instances'];
@@ -233,7 +233,7 @@ class Newer_Tag_Cloud_Init
         $content = [];
         $size = $instanceOptions['big_size'];
 
-        if (is_array($instanceOptions['cat_filter'])) {
+        if (is_array($instanceOptions['cat_filter']) && count($instanceOptions['cat_filter']) > 0) {
             $sqlCatFilter = "`$wpdb->term_relationships`.`object_id` IN (SELECT `object_id` FROM `$wpdb->term_relationships` LEFT JOIN `$wpdb->term_taxonomy` ON `$wpdb->term_relationships`.`term_taxonomy_id` = `$wpdb->term_taxonomy`.`term_taxonomy_id` WHERE `term_id` IN (" . implode(",", $instanceOptions['cat_filter']) . ")) AND";
         } else {
             $sqlCatFilter = "";

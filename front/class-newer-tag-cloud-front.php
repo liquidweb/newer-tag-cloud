@@ -117,17 +117,9 @@ class Newer_Tag_Cloud_Front
     {
         extract($args);
         $globalOptions = $this->options->get_newertagcloud_options();
-        $cloud = $this->options->generate_newertagcloud(false, $globalOptions['widget_instance']);
+        $cloud = $this->options->generate_newertagcloud(false, $globalOptions['default_widget_instance']);
 
         require __DIR__ . '/partials/newer-tag-cloud-public-display.php';
     }
 
-    public function print_newertagcloud_widget($args)
-    {
-        extract($args);
-        $globalOptions = $this->options->get_newertagcloud_options();
-        $cloud = $this->options->generate_newertagcloud(true, $globalOptions['widget_instance']);
-
-        require __DIR__ . '/partials/newer-tag-cloud-public-display.php';
-    }
 }
