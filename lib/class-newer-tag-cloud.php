@@ -83,7 +83,7 @@ class Newer_Tag_Cloud
     public function __construct()
     {
         $this->plugin_name = 'newer-tag-cloud';
-        $this->version = '1.1.0';
+        $this->version = '1.1.1';
 
         $this->load_dependencies();
         $this->set_locale();
