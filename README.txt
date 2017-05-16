@@ -2,8 +2,8 @@
 Contributors: Liquid Web, liquidwebdan
 Tags: tag, cloud, widget
 Requires at least: 3.0.1
-Tested up to: 3.4
-Stable tag: 4.3
+Tested up to: 4.3
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -46,9 +46,7 @@ Use a shortcode: `[newer-tag-cloud]` or [newer-tag-cloud int=1]
 == Frequently Asked Questions ==
 
 = So what does 'inspired by New Tag Cloud' mean exactly? =
-Initially the plugin was created as a direct fork of New Tag Cloud, only used internally and not publically released. A
-new version of the plugin was created based on the [WordPress Plugin Boilerplate](https://wppb.io/) with common features
-being implemented in Newer Tag Cloud.
+Initially the plugin was created as a direct fork of New Tag Cloud, only used internally and not publically released. A new version of the plugin was created based on the [WordPress Plugin Boilerplate](https://wppb.io/) with common features being implemented in Newer Tag Cloud.
 
 = How to use vanilla PHP to add a Tag Cloud? =
 If you want to use Newer Tag Cloud in your theme you can still use `<?php newerTagCloud() ?>`. If you want to use a specific widget you can provide the function an ID as parameter. For example, `<?php newerTagCloud(2) ?>` will result in the configuration using the instance provided.
@@ -64,7 +62,7 @@ This feature allows you the place different tag clouds on your blog as needed.
 Credit to the original plugin goes to [funnydingo](https://profiles.wordpress.org/funnydingo/).
 This redone version was created by [liquidwebdan](https://profiles.wordpress.org/liquidwebdan/) (aka [MallardDuck on GitHub](https://github.com/mallardduck))
 
-Finally, credit for the WordPress Plugin Boilerplate goes to:
+Finally, credit for the WordPress Plugin Boilerplate inspiration goes to:
 
 * [DevinVinson](https://github.com/DevinVinson)
 * [Tom McFarlin](https://github.com/tommcfarlin/)
@@ -73,6 +71,12 @@ Finally, credit for the WordPress Plugin Boilerplate goes to:
 * ...and many more!
 
 == Changelog ==
+
+= 1.1.0 =
+* First update!
+* Improves the plugins widget a lot
+* Now using WP_Widget to define the widgets logic
+* Clean up some code
 
 = 1.0.0 =
 * Initial version inspired by New Tag Cloud

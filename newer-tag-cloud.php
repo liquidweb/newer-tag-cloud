@@ -17,7 +17,7 @@
  * Plugin URI:    https://wordpress.org/plugins/newer-tag-cloud/
  * Description:   The plugin provides an widget which shows a tag cloud with the tags used by the new WordPress own tagging feature
  * Author:        Daniel Pock (Liquid Web)
- * Version:       1.0.0
+ * Version:       1.1.0
  * Author URI:    https://github.com/liquidweb/
  * License:       GPL-2.0+
  * License URI:   http://www.gnu.org/licenses/gpl-2.0.txt
