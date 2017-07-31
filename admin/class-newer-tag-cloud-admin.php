@@ -100,7 +100,7 @@ class Newer_Tag_Cloud_Admin
 
         if (isset($_POST[$pluginName.'-clearcache'])) {
             $this->newertagcloud_cache_clear();
-            echo '<div id="message" class="updated fade"><p><strong>Cache cleared</strong></p></div>';
+            echo '<div id="message" class="updated fade"><p><strong>' . __('Cache cleared.', $this->options->get_plugin_name()) . '</strong></p></div>';
         }
 
         $globalOptions = $options->get_newertagcloud_options();
@@ -213,7 +213,6 @@ class Newer_Tag_Cloud_Admin
         $options = $this->options->get_newertagcloud_options();
         unset($options['cache']);
         update_option($this->plugin_name, $options);
-        _e('Cache cleared.', $this->options->get_plugin_name());
     }
 
     public function update_newertagcloud_options()

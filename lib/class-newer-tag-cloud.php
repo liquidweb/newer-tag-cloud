@@ -145,7 +145,10 @@ class Newer_Tag_Cloud
         $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
         $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
         $this->loader->add_action('admin_menu', $plugin_admin, 'register_admin_pages'); // Add Admin page
-        $this->loader->add_action('save_post', $plugin_admin, 'newertagcloud_cache_clear'); // Add Admin page
+        if ( $this->getOptions()->get_newertagcloud_options()['enable_cache'] === true ) {
+            $this->loader->add_action('post_updated', $plugin_admin, 'newertagcloud_cache_clear');
+            $this->loader->add_action('publish_post', $plugin_admin, 'newertagcloud_cache_clear');
+        }
         $this->loader->add_action('widgets_init', $plugin_admin, 'newertagcloud_widget_init');
     }
 
