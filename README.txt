@@ -1,5 +1,5 @@
-=== Newer Tag Cloud by Liquid Web ===
-Contributors: Liquid Web, liquidwebdan
+=== Newer Tag Cloud ===
+Contributors: liquidwebdan
 Tags: tag, cloud, widget
 Requires at least: 3.0.1
 Tested up to: 4.7.4
@@ -71,6 +71,9 @@ Finally, credit for the WordPress Plugin Boilerplate inspiration goes to:
 * ...and many more!
 
 == Changelog ==
+
+= 1.1.2 =
+* Fix odd bug causing issues with posts page.
 
 = 1.1.0 & 1.1.1 =
 * First update!
